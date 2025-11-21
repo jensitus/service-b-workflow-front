@@ -1,20 +1,20 @@
 import {
-  Component,
-  Directive,
-  ElementRef,
-  EventEmitter,
-  inject,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-  QueryList,
-  Renderer2,
-  ViewChild,
-  ViewChildren
+    Component,
+    Directive,
+    ElementRef,
+    EventEmitter,
+    inject,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
+    QueryList,
+    Renderer2,
+    ViewChild,
+    ViewChildren
 } from '@angular/core';
 import {Observable, Subscription} from "rxjs";
-import {CommonModule, DecimalPipe} from "@angular/common";
+import {CommonModule} from "@angular/common";
 import {TaskService} from "../service/task.service";
 import {Router, RouterLink} from "@angular/router";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -64,7 +64,7 @@ export class NgbdSortableHeader {
 @Component({
   standalone: true,
   selector: 'app-task-list',
-  imports: [CommonModule, RouterLink, DecimalPipe, ReactiveFormsModule, NgbHighlight, NgbdSortableHeader, FormsModule, NgbPagination, AddAssigneeComponent],
+    imports: [CommonModule, RouterLink, ReactiveFormsModule, NgbHighlight, NgbdSortableHeader, FormsModule, NgbPagination, AddAssigneeComponent],
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.scss'],
 })

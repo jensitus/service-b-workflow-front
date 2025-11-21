@@ -75,16 +75,13 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "options": {
-            "proxyConfig": "./proxy.config.json"
-          },
-          "builder": "@angular-builders/custom-webpack:dev-server",
+          "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "insurance-showcase:build:production"
+              "buildTarget": "insurance-showcase:build:production"
             },
             "development": {
-              "browserTarget": "insurance-showcase:build:development"
+              "buildTarget": "insurance-showcase:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -92,7 +89,6 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "hal-showcase:build"
           }
         },
         "test": {

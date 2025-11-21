@@ -2,12 +2,17 @@ import {Component, inject, OnInit} from '@angular/core';
 import {UserResponse} from "../../../../auth/user-response";
 import {LoginService} from "../../../../auth/login.service";
 import {NavigationEnd, Router} from "@angular/router";
+import {AvatarComponent} from "../../../../shared/avatar/avatar.component";
 
 @Component({
-             selector: 'app-header',
-             templateUrl: './header.component.html',
-             styleUrls: ['./header.component.scss']
-           })
+    selector: 'app-header',
+    standalone: true,
+    templateUrl: './header.component.html',
+    imports: [
+        AvatarComponent
+    ],
+    styleUrls: ['./header.component.scss']
+})
 export class HeaderComponent implements OnInit {
   currentUser: UserResponse | undefined;
     public pushRightClass: string;

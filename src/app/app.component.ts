@@ -1,11 +1,19 @@
 import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {SideLayoutService} from "./shared/side-layout.service";
 import {filter, Subscription} from "rxjs";
-import {NavigationEnd, Router} from "@angular/router";
+import {NavigationEnd, Router, RouterOutlet} from "@angular/router";
+import {SidebarComponent} from "./layout/layout/layout/sidebar/sidebar.component";
+import {HeaderComponent} from "./layout/layout/layout/header/header.component";
 
 @Component({
     selector: 'app-root',
+    standalone: true,
     templateUrl: './app.component.html',
+    imports: [
+        RouterOutlet,
+        SidebarComponent,
+        HeaderComponent,
+    ],
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
@@ -13,7 +21,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private sideLayoutService = inject(SideLayoutService);
     private router = inject(Router);
 
-    title = 'insurance-showcase';
+    title = 'service-b.org';
     collapedSideBar: boolean = false;
     showSidebar = true;
     showHeader = true;

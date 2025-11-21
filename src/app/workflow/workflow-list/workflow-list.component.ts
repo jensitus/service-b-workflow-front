@@ -1,5 +1,5 @@
 import {Component, defineInjectable, inject, OnDestroy, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {Workflow} from "../model/workflow";
 import {Subscription} from "rxjs";
 import {WorkflowService} from "../service/workflow.service";
@@ -18,9 +18,13 @@ const translations = {
 }
 
 @Component({
-  selector: 'app-workflow-list',
-  templateUrl: './workflow-list.component.html',
-  styleUrls: ['./workflow-list.component.scss']
+    selector: 'app-workflow-list',
+    standalone: true,
+    templateUrl: './workflow-list.component.html',
+    imports: [
+        RouterLink
+    ],
+    styleUrls: ['./workflow-list.component.scss']
 })
 export class WorkflowListComponent implements OnInit, OnDestroy {
 

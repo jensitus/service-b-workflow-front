@@ -1,4 +1,4 @@
-<nav class="sidebar bg-body-tertiary" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed}">
+<nav class="sidebar bg-body-tertiary" [class]="{sidebarPushRight: isActive, collapsed: collapsed}">
   <div class="list-group mt-5">
 
     <a [routerLink]="['/new-task-list']" [routerLinkActive]="['router-link-active']" class="list-group-item">
@@ -36,7 +36,7 @@
 
     </div>
   </div>
-  <div class="toggle-button" [ngClass]="{collapsed: collapsed}" (click)="toggleCollapsed()">
+  <div class="toggle-button" [class.collapsed]="collapsed" (click)="toggleCollapsed()">
     <i class="fa fa-fw fa-angle-double-{{collapsed?'right':'left'}}"></i>&nbsp;
     <span>{{ 'Collapse Sidebar' }}</span>
   </div>

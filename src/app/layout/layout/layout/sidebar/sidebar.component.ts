@@ -1,11 +1,17 @@
 import {Component, EventEmitter, inject, OnInit, Output} from '@angular/core';
-import {NavigationEnd, Router} from "@angular/router";
+import {NavigationEnd, Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {LoginService} from "../../../../auth/login.service";
+import {NgClass} from "@angular/common";
 
 @Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+    selector: 'app-sidebar',
+    standalone: true,
+    templateUrl: './sidebar.component.html',
+    imports: [
+        RouterLink,
+        RouterLinkActive,
+    ],
+    styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit{
 
