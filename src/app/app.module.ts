@@ -8,35 +8,27 @@ import {HeaderComponent} from "./layout/layout/layout/header/header.component";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {HomeComponent} from './home/home.component';
 import {DecimalPipe, NgOptimizedImage} from "@angular/common";
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 import {WorkflowListComponent} from './workflow/workflow-list/workflow-list.component';
 import {AuthInterceptor} from "./auth/auth-interceptor.service";
 import {ErrorInterceptor} from "./shared/error.interceptor";
 import {BpmnComponent} from "./workflow/bpmn/bpmn.component";
 import {AvatarComponent} from "./shared/avatar/avatar.component";
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    SidebarComponent,
-    HeaderComponent,
-    HomeComponent,
-    WorkflowListComponent
-  ],
-    imports: [
-        BrowserModule,
+@NgModule({ declarations: [
+        AppComponent,
+        SidebarComponent,
+        HeaderComponent,
+        HomeComponent,
+        WorkflowListComponent
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
         AppRoutingModule,
         FontAwesomeModule,
         NgOptimizedImage,
-        HttpClientModule,
         BpmnComponent,
-        AvatarComponent
-    ],
-  providers: [DecimalPipe,
-              {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
-              {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
-  ],
-  bootstrap: [AppComponent]
-})
+        AvatarComponent], providers: [DecimalPipe,
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule {
 }
