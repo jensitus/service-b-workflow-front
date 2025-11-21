@@ -2,26 +2,26 @@
   <div class="list-group mt-5">
 
     <a [routerLink]="['/new-task-list']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-      <fa-icon [icon]="faListCheck"></fa-icon>&nbsp;
+      <i class="bi bi-card-checklist"></i>&nbsp;
       <span>{{ 'Tasks' }}</span>
     </a>
     <a [routerLink]="['/workflow-list']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-      <fa-icon [icon]="faNetworkWired"></fa-icon>&nbsp;
+      <i class="bi bi-diagram-3"></i>&nbsp;
       <span>{{ 'Workflows' }}</span>
     </a>
 
     <a [routerLink]="['/customers']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-      <fa-icon [icon]="faGhost" />&nbsp;
+      <i class="bi bi-people"></i>&nbsp;
       <span>{{ 'Customers' }}</span>
     </a>
       @if (!isLoggedIn) {
           <a [routerLink]="['/login']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-              <fa-icon [icon]="faUser" />&nbsp;
+              <i class="bi bi-person"></i>&nbsp;
               <span>{{ 'Login' }}</span>
           </a>
       } @else {
           <a [routerLink]="['/#']" [routerLinkActive]="['router-link-active']" class="list-group-item" (click)="logout()">
-              <fa-icon [icon]="faUser" />&nbsp;
+              <i class="bi bi-box-arrow-right"></i>&nbsp;
               <span>{{ 'Logout' }}</span>
           </a>
       }

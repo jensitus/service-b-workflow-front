@@ -1,9 +1,5 @@
 import {Component, EventEmitter, inject, OnInit, Output} from '@angular/core';
 import {NavigationEnd, Router} from "@angular/router";
-import {faCoffee, faUser, faBars, faPowerOff, faTachometerAlt, faPersonCircleMinus} from '@fortawesome/free-solid-svg-icons';
-import {faGhost} from "@fortawesome/free-solid-svg-icons/faGhost";
-import {faListCheck} from "@fortawesome/free-solid-svg-icons/faListCheck";
-import {faNetworkWired} from "@fortawesome/free-solid-svg-icons/faNetworkWired";
 import {LoginService} from "../../../../auth/login.service";
 
 @Component({
@@ -18,10 +14,6 @@ export class SidebarComponent implements OnInit{
   showMenu: string | undefined;
   isActive: boolean | undefined;
   isLoggedIn: boolean | undefined;
-  faTachometerAlt = faTachometerAlt;
-  faUser = faUser;
-  faBars = faBars;
-  faPowerOff = faPowerOff;
   @Output() collapsedEvent = new EventEmitter<boolean>();
   private loginService = inject(LoginService);
 
@@ -64,11 +56,6 @@ export class SidebarComponent implements OnInit{
       this.showMenu = element;
     }
   }
-
-  protected readonly faPersonCircleMinus = faPersonCircleMinus;
-  protected readonly faGhost = faGhost;
-  protected readonly faListCheck = faListCheck;
-  protected readonly faNetworkWired = faNetworkWired;
 
   logout() {
     this.loginService.logout();

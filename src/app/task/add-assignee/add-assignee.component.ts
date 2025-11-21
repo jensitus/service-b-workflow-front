@@ -5,10 +5,6 @@ import {TaskService} from "../service/task.service";
 import {NgbDropdown, NgbDropdownItem, NgbDropdownMenu, NgbDropdownToggle} from "@ng-bootstrap/ng-bootstrap";
 import {RouterLink} from "@angular/router";
 import {Message} from "../../customer/message";
-import {faCoffee, faUser, faBars, faPowerOff, faTachometerAlt, faPersonCircleMinus} from '@fortawesome/free-solid-svg-icons';
-import {FaIconComponent} from "@fortawesome/angular-fontawesome";
-import {faCross} from "@fortawesome/free-solid-svg-icons/faCross";
-import {faRemove} from "@fortawesome/free-solid-svg-icons/faRemove";
 
 
 @Component({
@@ -19,8 +15,7 @@ import {faRemove} from "@fortawesome/free-solid-svg-icons/faRemove";
     NgbDropdownItem,
     NgbDropdownMenu,
     NgbDropdownToggle,
-    RouterLink,
-    FaIconComponent
+    RouterLink
   ],
   templateUrl: './add-assignee.component.html',
   styleUrl: './add-assignee.component.scss'
@@ -54,8 +49,4 @@ export class AddAssigneeComponent implements OnDestroy {
   removeAssignee() {
 
   }
-
-  protected readonly faCross = faCross;
-  protected readonly faPersonCircleMinus = faPersonCircleMinus;
-  protected readonly faRemove = faRemove;
 }

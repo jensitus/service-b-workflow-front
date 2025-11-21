@@ -1,6 +1,4 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {faBars, faGear, faLaptop} from '@fortawesome/free-solid-svg-icons';
-import {faRightFromBracket} from "@fortawesome/free-solid-svg-icons/faRightFromBracket";
 import {UserResponse} from "../../../../auth/user-response";
 import {LoginService} from "../../../../auth/login.service";
 import {NavigationEnd, Router} from "@angular/router";
@@ -11,10 +9,6 @@ import {NavigationEnd, Router} from "@angular/router";
              styleUrls: ['./header.component.scss']
            })
 export class HeaderComponent implements OnInit {
-  faLaptop = faLaptop;
-  faBars = faBars;
-  faBracket = faRightFromBracket;
-  faGear = faGear;
   currentUser: UserResponse | undefined;
     public pushRightClass: string;
 

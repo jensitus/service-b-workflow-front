@@ -16,7 +16,6 @@ import {Subscription} from "rxjs";
 import BpmnJS from 'bpmn-js/lib/Modeler'
 import {Canvas} from "bpmn-js/lib/features/context-pad/ContextPadProvider";
 import NavigatedViewer from "bpmn-js/lib/NavigatedViewer";
-import {faRecordVinyl} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-bpmn',

@@ -4,8 +4,6 @@ import {Workflow} from "../model/workflow";
 import {Subscription} from "rxjs";
 import {WorkflowService} from "../service/workflow.service";
 import {ProcessDefinition} from "../model/process-definition";
-import {faArrowAltCircleLeft} from "@fortawesome/free-solid-svg-icons/faArrowAltCircleLeft";
-import {faArrowCircleLeft} from "@fortawesome/free-solid-svg-icons/faArrowCircleLeft";
 
 const translations = {
   "title.long": 'Workflows',
@@ -72,7 +70,5 @@ export class WorkflowListComponent implements OnInit, OnDestroy {
     this.getDefinitionsByTenant();
   }
 
-  protected readonly faArrowAltCircleLeft = faArrowAltCircleLeft;
-  protected readonly faArrowCircleLeft = faArrowCircleLeft;
     protected readonly defineInjectable = defineInjectable;
 }

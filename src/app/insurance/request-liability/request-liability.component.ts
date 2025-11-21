@@ -2,14 +2,7 @@ import {Component, inject, Input, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
 import {CustomerService} from "../../customer/customer.service";
 import {Customer} from "../../customer/customer";
-import {faGhost} from "@fortawesome/free-solid-svg-icons/faGhost";
-import {FaIconComponent} from "@fortawesome/angular-fontawesome";
-import {faAddressBook} from "@fortawesome/free-solid-svg-icons/faAddressBook";
-import {faGenderless} from "@fortawesome/free-solid-svg-icons/faGenderless";
-import {faListNumeric} from "@fortawesome/free-solid-svg-icons/faListNumeric";
-import {faStreetView} from "@fortawesome/free-solid-svg-icons/faStreetView";
-import {faCity} from "@fortawesome/free-solid-svg-icons/faCity";
-import {faFlag} from "@fortawesome/free-solid-svg-icons/faFlag";
+// removed FontAwesome imports; using Bootstrap Icons in templates where needed
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RequestInsurance} from "../../customer/request-insurance";
 import {Message} from "../../customer/message";
@@ -21,7 +14,6 @@ import {PaymentScheduleComponent} from "../payment-schedule/payment-schedule.com
   selector: 'app-request-liability',
   standalone: true,
   imports: [
-    FaIconComponent,
     ReactiveFormsModule,
     FormsModule,
     CustomerCardComponent,
@@ -59,13 +51,6 @@ export class RequestLiabilityComponent implements OnInit, OnDestroy {
     )
   }
 
-  protected readonly faGhost = faGhost;
-  protected readonly faAddressBook = faAddressBook;
-  protected readonly faGenderless = faGenderless;
-  protected readonly faListNumeric = faListNumeric;
-  protected readonly faStreetView = faStreetView;
-  protected readonly faCity = faCity;
-  protected readonly faFlag = faFlag;
   sufficientIncome: boolean;
   mudslide_risk: boolean = false;
   flood_risk: boolean = false;

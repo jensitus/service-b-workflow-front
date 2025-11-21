@@ -17,7 +17,7 @@
         <tbody>
           @for (customer of customers; track customer) {
             <tr>
-              <td><a [routerLink]="['/customers', customer.id]"><fa-icon [icon]="faArrowAltCircleRight" /></a></td>
+              <td><a [routerLink]="['/customers', customer.id]"><i class="bi bi-arrow-right-circle"></i></a></td>
               <td>{{ customer.firstname }}</td>
               <td>{{ customer.lastname }}</td>
             </tr>
@@ -30,7 +30,7 @@
     <div class="row pt3">
         <div class="col">
             <a [routerLink]="['/create-customer']"  class="btn btn-outline-success">
-                <fa-icon [icon]="faPersonCircleMinus" />&nbsp;
+                <i class="bi bi-person-plus"></i>&nbsp;
                 <span>{{ 'Create Customer' }}</span>
             </a>
         </div>

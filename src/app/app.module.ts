@@ -5,7 +5,6 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {SidebarComponent} from "./layout/layout/layout/sidebar/sidebar.component";
 import {HeaderComponent} from "./layout/layout/layout/header/header.component";
-import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {HomeComponent} from './home/home.component';
 import {DecimalPipe, NgOptimizedImage} from "@angular/common";
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
@@ -24,7 +23,6 @@ import {AvatarComponent} from "./shared/avatar/avatar.component";
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         AppRoutingModule,
-        FontAwesomeModule,
         NgOptimizedImage,
         BpmnComponent,
         AvatarComponent], providers: [DecimalPipe,
