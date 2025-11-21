@@ -1,0 +1,40 @@
+<h3>Customers</h3>
+@defer {
+<div class="row pt-3">
+  <div class="col">
+
+      @if (!customers) {
+        ... Loading
+      }
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (customer of customers; track customer) {
+            <tr>
+              <td><a [routerLink]="['/customers', customer.id]"><fa-icon [icon]="faArrowAltCircleRight" /></a></td>
+              <td>{{ customer.firstname }}</td>
+              <td>{{ customer.lastname }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+
+  </div>
+</div>
+    <div class="row pt3">
+        <div class="col">
+            <a [routerLink]="['/create-customer']"  class="btn btn-outline-success">
+                <fa-icon [icon]="faPersonCircleMinus" />&nbsp;
+                <span>{{ 'Create Customer' }}</span>
+            </a>
+        </div>
+    </div>
+} @placeholder {
+  ... Loading
+}

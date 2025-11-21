@@ -1,0 +1,41 @@
+<h3>New liability insurance</h3>
+<div class="row pt-3">
+  <div class="col-md-6">
+    <app-customer-card [customer]="customer" />
+  </div>
+</div>
+
+<app-payment-schedule (chosenInsuranceSum)="showChosenInsuranceSum($event)"
+                      (chosenPaymentSchedule)="showChosenPaymentSchedule($event)"
+                      (chosenCoverage)="showChosenCoverage($event)"
+                      (chosenAmount)="showChosenAmount($event)"
+                      (chosenPS)="showChosenPS($event)" />
+<div class="row pt-3">
+  <div class="col-md-6">
+      <div class="card">
+          <div class="card-header">
+              Monthy Income
+          </div>
+          <div class="card-body">
+              <div class="row">
+                  <div class="col-md-2">
+                      <input id="sufficientIncome" type="checkbox" class="form-check-input" [(ngModel)]="sufficientIncome">
+                  </div>
+                  <div class="col-md-6">
+                      @if (sufficientIncome) {
+                          <b>></b> € 5000.- (alright)
+                      } @else {
+                          <b><</b> € 5000.- (let's take a closer look)
+                      }
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="row pt-3">
+  <div class="col-md-6">
+    <button class="btn btn-sm btn-outline-info" (click)="request_insurance()">Request insurance</button>
+  </div>
+</div>

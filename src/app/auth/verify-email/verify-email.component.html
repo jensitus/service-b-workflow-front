@@ -1,0 +1,35 @@
+<div class="verify-container">
+    <div class="verify-card">
+        <!-- Verifying -->
+        @if (verifying) {
+            <div class="text-center">
+                <div class="spinner-border text-primary mb-3" style="width: 3rem; height: 3rem;"></div>
+                <h4>Verifying your email...</h4>
+                <p class="text-muted">Please wait while we verify your account.</p>
+            </div>
+        }
+        <!-- Success -->
+        @if (!verifying && success) {
+            <div class="text-center">
+                <i class="bi bi-check-circle-fill text-success mb-3" style="font-size: 4rem;"></i>
+                <h4 class="mb-3">Email Verified Successfully!</h4>
+                <p class="text-muted mb-4">Your account has been activated. You can now login.</p>
+                <button class="btn btn-primary w-100" (click)="navigateToLogin()">
+                    Go to Login
+                </button>
+            </div>
+        }
+
+        <!-- Error -->
+        @if (!verifying && !success) {
+            <div class="text-center">
+                <i class="bi bi-x-circle-fill text-danger mb-3" style="font-size: 4rem;"></i>
+                <h4 class="mb-3">Verification Failed</h4>
+                <div class="alert alert-danger">{{ errorMessage }}</div>
+                <button class="btn btn-primary w-100" (click)="navigateToLogin()">
+                    Go to Login
+                </button>
+            </div>
+        }
+    </div>
+</div>

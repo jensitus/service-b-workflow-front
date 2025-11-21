@@ -1,0 +1,44 @@
+<nav class="sidebar bg-body-tertiary" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed}">
+  <div class="list-group mt-5">
+
+    <a [routerLink]="['/new-task-list']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <fa-icon [icon]="faListCheck"></fa-icon>&nbsp;
+      <span>{{ 'Tasks' }}</span>
+    </a>
+    <a [routerLink]="['/workflow-list']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <fa-icon [icon]="faNetworkWired"></fa-icon>&nbsp;
+      <span>{{ 'Workflows' }}</span>
+    </a>
+
+    <a [routerLink]="['/customers']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <fa-icon [icon]="faGhost" />&nbsp;
+      <span>{{ 'Customers' }}</span>
+    </a>
+      @if (!isLoggedIn) {
+          <a [routerLink]="['/login']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+              <fa-icon [icon]="faUser" />&nbsp;
+              <span>{{ 'Login' }}</span>
+          </a>
+      } @else {
+          <a [routerLink]="['/#']" [routerLinkActive]="['router-link-active']" class="list-group-item" (click)="logout()">
+              <fa-icon [icon]="faUser" />&nbsp;
+              <span>{{ 'Logout' }}</span>
+          </a>
+      }
+
+
+    <div class="header-fields">
+      <div class="nested-menu">
+        <a class="list-group-item" (click)="addExpandClass('languages')">
+          <span><i class="fa fa-language"></i>&nbsp; {{ 'Language' }} <b class="caret"></b></span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+  <div class="toggle-button" [ngClass]="{collapsed: collapsed}" (click)="toggleCollapsed()">
+    <i class="fa fa-fw fa-angle-double-{{collapsed?'right':'left'}}"></i>&nbsp;
+    <span>{{ 'Collapse Sidebar' }}</span>
+  </div>
+
+</nav>

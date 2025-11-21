@@ -1,0 +1,111 @@
+<div class="row">
+  <div class="col-md-4">
+    <div class="row pt-3">
+      <div class="col">
+        <label for="firstname">First Name</label>
+        <input id="firstname" type="text" class="form-control" [(ngModel)]="firstname">
+      </div>
+    </div>
+
+    <div class="row pt-3">
+      <div class="col">
+        <label for="lastname">Last Name</label>
+        <input id="lastname" type="text" [(ngModel)]="lastname" class="form-control">
+      </div>
+    </div>
+
+    <div class="row pt-3">
+        <div class="col">
+            <div class="input-group">
+                <label class="input-group-text">Gender</label>
+                <select class="form-select" [(ngModel)]="gender">
+                    @for (gender of Gender | keyvalue; track gender) {
+                        <option [value]="gender.value">{{gender.key}}</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ##################### -->
+    <div class="pt-3">
+
+      <form class="row row-cols-sm-auto">
+        <div class="col-12">
+          <label for="dateOfBirth">Date of birth</label>
+          <div class="input-group">
+            <input
+              id="dateOfBirth"
+              class="form-control"
+              placeholder="yyyy-mm-dd"
+              name="dp"
+              [(ngModel)]="model"
+              ngbDatepicker
+              #d="ngbDatepicker"
+            />
+            <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"></button>
+          </div>
+        </div>
+      </form>
+
+      <hr/>
+
+
+    </div>
+    <!-- ##################### -->
+    <div class="row pt-3">
+      <div class="col">
+        <label for="email">Email</label>
+        <input id="email" type="email" [(ngModel)]="email" class="form-control">
+      </div>
+    </div>
+
+    <div class="row pt-3">
+      <div class="col">
+        <label for="email">Phone Number</label>
+        <input id="phoneNumber" type="email" [(ngModel)]="phoneNumber" class="form-control">
+      </div>
+    </div>
+
+    <div class="row pt-3">
+      <div class="col">
+        <label for="street">Street</label>
+        <input id="street" type="text" [(ngModel)]="street" class="form-control">
+      </div>
+    </div>
+
+    <div class="row pt-3">
+      <div class="col">
+        <label for="zip-code">Zip Code</label>
+        <input id="zip-code" type="text" [(ngModel)]="zipCode" class="form-control">
+      </div>
+    </div>
+
+    <div class="row pt-3">
+      <div class="col">
+        <label for="city">City</label>
+        <input id="city" type="text" [(ngModel)]="city" class="form-control">
+      </div>
+    </div>
+
+    <div class="row pt-3">
+      <div class="col">
+        <label for="country">Country</label>
+        <input id="country" type="text" [(ngModel)]="country" class="form-control">
+      </div>
+    </div>
+
+    <div class="row pt-3">
+      <div class="col">
+        <button class="btn btn-sm btn-outline-success" (click)="create()">Create</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <small><i>* All fields are mandatory!</i></small>
+      </div>
+    </div>
+  </div>
+</div>
+

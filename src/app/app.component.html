@@ -1,0 +1,5 @@
+<app-header *ngIf="showHeader"></app-header>
+<app-sidebar (collapsedEvent)="receiveCollapsed($event)" *ngIf="showSidebar"></app-sidebar>
+<section [class.main-container]="showSidebar" [ngClass]="{collapsed: collapedSideBar}">
+  <router-outlet></router-outlet>
+</section>

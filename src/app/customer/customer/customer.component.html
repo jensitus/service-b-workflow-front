@@ -1,0 +1,304 @@
+@if (customer === undefined) {
+    <p aria-hidden="true" class="placeholder-wave">
+        <span class="placeholder col-8 placeholder-lg"></span>
+    </p>
+    <p aria-hidden="true" class="placeholder-glow">
+        <span class="placeholder col-8 placeholder-lg"></span>
+    </p>
+
+} @else {
+    <div class="row">
+        <div class="col-md-4">
+            <h3>{{ customer.firstname + ' ' + customer.lastname }}</h3>
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                        </div>
+                    </div>
+                    <div class="row pt-3">
+                        <div class="col">
+                            Date of birth:
+                        </div>
+                        <div class="col">
+                            {{ customer.dateOfBirth }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            Telephone:
+                        </div>
+                        <div class="col">
+                            {{ customer.phoneNumber }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            Gender:
+                        </div>
+                        <div class="col">
+                            {{ customer.gender }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            Street:
+                        </div>
+                        <div class="col">
+                            {{ customer.street }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            City:
+                        </div>
+                        <div class="col">
+                            {{ customer.zipCode + ' ' + customer.city }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            Country:
+                        </div>
+                        <div class="col">
+                            {{ customer.country }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h4>Insurances</h4>
+            <div>
+                @for (insurance of approvedInsurances; track insurance) {
+                    <div class="pt-1">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-3">
+                                        Number:
+                                    </div>
+                                    <div class="col-9">
+                                        {{ insurance.insuranceNumber }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3">
+                                        Name:
+                                    </div>
+                                    <div class="col-9">
+                                        {{ insurance.name }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3">
+                                        Type:
+                                    </div>
+                                    <div class="col-9">
+                                        {{ insurance.insuranceType }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3">
+                                        Sum:
+                                    </div>
+                                    <div class="col-9">
+                                        {{ insurance.insuranceSum }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3">
+                                        Payment schedule:
+                                    </div>
+                                    <div class="col-9">
+                                        {{ insurance.paymentSchedule }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3">
+                                        Amount:
+                                    </div>
+                                    <div class="col-9">
+                                        {{ "€ " + insurance.amount + ".-" }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3">
+                                        State:
+                                    </div>
+                                    <div class="col-9">
+                                        {{ insurance.state }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+<div class="row">
+    <div class="col-md-4 mt-4">
+        <p>
+            <b>New Insurance?</b>
+        </p>
+        <div class="form-check">
+            <input id="new_insurance"
+                   type="checkbox"
+                   [(ngModel)]="isChecked"
+                   class="btn-check">
+            <label class="btn btn-sm btn-outline-info" for="new_insurance">
+                <b>{{ isChecked ? 'No' : 'Add new insurance' }}</b>
+            </label>
+        </div>
+        @if (isChecked) {
+            <div class="row pt-5">
+                <div class="col">
+                    Insurance Type
+                    <select class="form-select" aria-label="Default select example" [(ngModel)]="type"
+                            (change)="new_insurance()">
+                        <option value="LIABILITY_INSURANCE">Liability</option>
+                        <option value="HOUSEHOLD_INSURANCE">Household</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row pt-3">
+                <div class="col">
+                    <button class="btn btn-sm btn-outline-dark"
+                            (click)="request_insurance()"
+                            [disabled]="type === undefined">
+                        Request Insurance
+                    </button>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-md-8 mt-5">
+
+        <div class="row mt-4">
+            <div class="col">
+                <h4>Open Tasks</h4>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Task ID</th>
+                        <th>Title</th>
+                        <th>Type</th>
+                        <th>Assignee</th>
+                        <th>Created at</th>
+                    </tr>
+                    </thead>
+                    @if (tasks.length === 0) {
+                        <tbody>
+                        <tr>
+                            <td></td>
+                            <td>
+                                No Open Tasks
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    } @else {
+                        <tbody #tableElement>
+                            @for (task of tasks; track task) {
+                                <tr>
+                                    <td>
+                                        <a [routerLink]="['/tasks', task.taskId]">
+                                            {{ task.taskId }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        {{ task.title }}
+                                    </td>
+                                    <td>
+                                        {{ task.type }}
+                                    </td>
+                                    <td>
+                                        {{ task.assignee }}
+                                    </td>
+                                    <td>
+                                        {{ task.createdAt | date: 'dd.MM.yyyy HH:mm' }}
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    }
+                </table>
+            </div>
+        </div>
+
+        <div class="row pt-3">
+            <div class="col-10">
+                @if (requestedInsurances.length > 0) {
+                    <h4>Requested contracts</h4>
+                    @for (insurance of requestedInsurances; track insurance) {
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        Payment Schedule:
+                                    </div>
+                                    <div class="col-md-2">
+                                        {{ insurance.paymentSchedule }}
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        Number:
+                                    </div>
+                                    <div class="col-md-3">
+                                        {{ insurance.insuranceNumber }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        Amount:
+                                    </div>
+                                    <div class="col-md-2">
+                                        {{ insurance.amount }}
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        Name:
+                                    </div>
+                                    <div class="col-md-5">
+                                        {{ insurance.name }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        Insurance sum:
+                                    </div>
+                                    <div class="col-md-2">
+                                        {{ insurance.insuranceSum }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        Insurance coverage:
+                                    </div>
+                                    <div class="col-md-2">
+                                        {{ insurance.insuranceCoverage }}
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        State:
+                                    </div>
+                                    <div class="col-md-5">
+                                        {{ insurance.state }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+    </div>
+</div>
+
+

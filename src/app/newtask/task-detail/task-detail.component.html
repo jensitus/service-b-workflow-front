@@ -1,0 +1,254 @@
+<!-- task-detail.component.html -->
+<div class="task-detail-container">
+    <!-- Header with Navigation -->
+    <div class="header">
+        <button class="back-button" (click)="goBack()">
+            ← Back to Task List
+        </button>
+        @if (task()) {
+            <h2>{{ task().name }}</h2>
+        } @else {
+            <h2>Task Details</h2>
+        }
+    </div>
+
+    <!-- Loading State -->
+    @if (loading()) {
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Loading task details...</p>
+        </div>
+    }
+
+    <!-- Error Message -->
+    @if (error()) {
+        <div class="error-message">
+            {{ error() }}
+        </div>
+    }
+
+    <!-- Success Message -->
+    @if (successMessage()) {
+        <div class="success-message">
+            {{ successMessage() }}
+        </div>
+    }
+
+    <!-- Task Details -->
+    @if (!loading() && task()) {
+        <div class="task-card">
+
+            <div class="form-grid">
+                @if (task()?.additionalInfo) {
+
+                    @for (info of additionalInfo | keyvalue; track info) {
+                        <div class="form-column">
+                            <div class="info-section">
+                                <h3>
+                                    {{ getCardHeader(info.key) }}
+                                </h3>
+
+                                @for (data of info.value | keyvalue; track data) {
+                                    <div class="info-item">
+                                        <label>{{ data.key }}:</label>
+                                        <div class="info-value">{{ data.value }}</div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+
+                }
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-bar">
+                @if (!editMode()) {
+                    <button class="btn-edit" (click)="toggleEditMode()">
+                        ✏️ Edit Task
+                    </button>
+                    <button class="btn-delete" (click)="onDelete()" [disabled]="saving()">
+                        🗑️ Delete Task
+                    </button>
+                } @else {
+                    <button class="btn-save" (click)="onSubmit()" [disabled]="saving() || taskForm.invalid">
+                        {{ saving() ? 'Saving...' : '💾 Save Changes' }}
+                    </button>
+                    <button class="btn-cancel" (click)="toggleEditMode()" [disabled]="saving()">
+                        ✖️ Cancel
+                    </button>
+                }
+            </div>
+
+            <!-- Form -->
+            <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+                <div class="form-grid">
+                    <!-- Left Column -->
+                    <div class="form-column">
+                        <!-- Task Name -->
+                        <div class="form-group">
+                            <label for="name">Task Name *</label>
+                            @if (editMode()) {
+                                <input
+                                        id="name"
+                                        type="text"
+                                        formControlName="name"
+                                        class="form-control"
+                                        [class.invalid]="taskForm.get('name')?.invalid && taskForm.get('name')?.touched">
+                                @if (taskForm.get('name')?.invalid && taskForm.get('name')?.touched) {
+                                    <span class="error-text">Task name is required</span>
+                                }
+                            } @else {
+                                <div class="readonly-field">{{ task()?.name }}</div>
+                            }
+                        </div>
+
+                        <!-- Assignee -->
+                        <div class="form-group">
+                            <label for="assignee">Assignee</label>
+                            @if (editMode()) {
+                                <input
+                                        id="assignee"
+                                        type="text"
+                                        formControlName="assignee"
+                                        class="form-control"
+                                        placeholder="Unassigned">
+                            } @else {
+                                <div class="readonly-field">{{ task()?.assignee || 'Unassigned' }}</div>
+                            }
+                        </div>
+
+                        <!-- Task State -->
+                        <div class="form-group">
+                            <label for="taskState">Task State *</label>
+                            @if (editMode()) {
+                                <select
+                                        id="taskState"
+                                        formControlName="taskState"
+                                        class="form-control"
+                                        [class.invalid]="taskForm.get('taskState')?.invalid && taskForm.get('taskState')?.touched">
+                                    <option value="">Select State</option>
+                                    <option value="PENDING">Pending</option>
+                                    <option value="IN_PROGRESS">In Progress</option>
+                                    <option value="COMPLETED">Completed</option>
+                                    <option value="ACTIVE">Active</option>
+                                    <option value="CANCELLED">Cancelled</option>
+                                </select>
+                                @if (taskForm.get('taskState')?.invalid && taskForm.get('taskState')?.touched) {
+                                    <span class="error-text">Task state is required</span>
+                                }
+                            } @else {
+                                <div class="readonly-field">
+                                    <span [class]="'status-badge status-' + task()?.taskState?.toLowerCase()">
+                                        {{ task()?.taskState }}
+                                    </span>
+                                </div>
+                            }
+                        </div>
+
+                        <!-- Form Key -->
+                        <!--
+                        <div class="form-group">
+                            <label for="formKey">Form Key</label>
+                            @if (editMode()) {
+                                <input
+                                        id="formKey"
+                                        type="text"
+                                        formControlName="formKey"
+                                        class="form-control"
+                                        placeholder="Enter form key">
+                            } @else {
+                                <div class="readonly-field">{{ task()?.formKey || 'N/A' }}</div>
+                            }
+                        </div>
+                        -->
+                        <app-task-form [data]="data"
+                                       [config]="configData"
+                                       (formValue)="deliverFormValue=$event"/>
+
+                    </div>
+
+
+                    <!-- Right Column - Read-only fields -->
+                    <div class="form-column">
+                        <div class="info-section">
+                            <h3>System Information</h3>
+
+                            <div class="info-item">
+                                <label>Task ID</label>
+                                <div class="info-value">{{ task()?.taskId }}</div>
+                            </div>
+
+                            <div class="info-item">
+                                <label>Internal ID</label>
+                                <div class="info-value code">{{ task()?.id }}</div>
+                            </div>
+
+                            <div class="info-item">
+                                <label>Tenant ID</label>
+                                <div class="info-value">{{ task()?.tenantId }}</div>
+                            </div>
+
+                            <div class="info-item">
+                                <label>Created</label>
+                                <div class="info-value">{{ task()?.created | date:'medium' }}</div>
+                            </div>
+
+                            <div class="info-item">
+                                <label>Process Instance ID</label>
+                                <div class="info-value code">{{ task()?.processInstanceId || 'N/A' }}</div>
+                            </div>
+
+                            <div class="info-item">
+                                <label>Process Definition ID</label>
+                                <div class="info-value code">{{ task()?.processDefinitionId || 'N/A' }}</div>
+                            </div>
+
+                            <div class="info-item">
+                                <label>Execution ID</label>
+                                <div class="info-value code">{{ task()?.executionId || 'N/A' }}</div>
+                            </div>
+
+                            <div class="info-item">
+                                <label>Task Definition Key</label>
+                                <div class="info-value">{{ task()?.taskDefinitionKey || 'N/A' }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="action-bar">
+                <button class="btn-save" (click)="completeTask()"
+                        [disabled]="saving() || taskForm.invalid || task()?.taskState === 'COMPLETED'">
+                    &#9998;&#65039; Complete Task
+                </button>
+                <button class="btn-edit-emo"> &#9973; Edit Task</button>
+            </div>
+
+        </div>
+    }
+</div>
+
+<!-- BPMN Diagram Section -->
+@if (task()?.processInstanceId) {
+    <div class="bpmn-section">
+        <h3>Process Instance Progress</h3>
+        <div class="bpmn-legend">
+                        <span class="legend-item">
+                            <span class="legend-badge badge-active">▶</span> Active
+                        </span>
+            <span class="legend-item">
+                            <span class="legend-badge badge-completed">✓</span> Completed
+                        </span>
+            <span class="legend-item">
+                            <span class="legend-badge badge-incident">⚠️</span> Incident
+                        </span>
+        </div>
+        <app-bpmn-viewer
+                [workflowKey]="'insurance_showcase'"
+                [tenantId]="'insurance'"
+                [processInstanceKey]="task()?.processInstanceId">
+        </app-bpmn-viewer>
+    </div>
+}

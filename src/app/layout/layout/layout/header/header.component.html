@@ -1,0 +1,105 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <span class="text-danger">
+                <fa-icon [icon]="faGear"></fa-icon>
+            </span> &nbsp;
+            service-b.org</a>
+        <button class="navbar-toggler"
+                (click)="toggleSidebar()"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarTogglerDemo02"
+                aria-controls="navbarTogglerDemo02"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <!--span class="navbar-toggler-icon"></--span-->
+            <fa-icon class="text-warning" [icon]="faBars"></fa-icon>
+        </button>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+            </ul>
+            <div class="nav-item">
+                <fa-icon [icon]="faBracket"></fa-icon>
+                &nbsp;
+                <app-avatar [avatarUrl]="currentUser?.avatarUrl"
+                            [username]="currentUser?.username"
+                            [email]="currentUser?.email"
+                            size="sm"
+                            class="me-2">
+                </app-avatar>
+                &nbsp;
+                {{ currentUser?.username }}
+                &nbsp;
+                <fa-icon [icon]="faLaptop"></fa-icon>
+                &nbsp;
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!--
+<nav class="navbar navbar-expand-lg nav-custom-header fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" [routerLink]="['/']"><b class="text-secondary">service-b.org</b></a>
+
+        <button class="navbar-toggler" type="button" (click)="toggleSidebar()">
+            <fa-icon class="text-warning" [icon]="faBars"></fa-icon>
+        </button>
+        <div class="collapse navbar-collapse">
+
+            <div class="navbar-nav navbar-nav-icons">
+                <div class="nav-item">
+                    <fa-icon [icon]="faGear"></fa-icon>
+                    &nbsp;
+                    <fa-icon [icon]="faBracket"></fa-icon>
+                    &nbsp;
+                    <app-avatar [avatarUrl]="currentUser?.avatarUrl"
+                                [username]="currentUser?.username"
+                                [email]="currentUser?.email"
+                                size="sm"
+                                class="me-2">
+                    </app-avatar>
+                    &nbsp;
+                    {{ currentUser?.username }}
+                    &nbsp;
+                    <fa-icon [icon]="faLaptop"></fa-icon>
+                    &nbsp;
+                    <fa-icon [icon]="faBars"></fa-icon>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+-->
+
+
+<!--<nav class="navbar fixed-top nav-custom-header">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="./assets/images/service-b-logo.svg" alt="service-b.org" width="50" height="50">
+            service-b.org
+        </a>
+        <div class="navbar-nav navbar-nav-icons">
+            <div class="nav-item">
+                <fa-icon [icon]="faGear"></fa-icon>
+                &nbsp;
+                <fa-icon [icon]="faBracket"></fa-icon>
+                &nbsp;
+                <app-avatar [avatarUrl]="currentUser?.avatarUrl"
+                            [username]="currentUser?.username"
+                            [email]="currentUser?.email"
+                            size="sm"
+                            class="me-2">
+                </app-avatar>
+                &nbsp;
+                {{currentUser?.username}}
+                &nbsp;
+                <fa-icon [icon]="faLaptop"></fa-icon>
+                &nbsp;
+                <fa-icon [icon]="faBars"></fa-icon>
+            </div>
+        </div>
+    </div>
+</nav>-->
