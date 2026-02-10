@@ -1,8 +1,8 @@
 <div class="container">
     <h3>Login</h3>
-    @if (showErrorToast) {
-        <ngb-toast [autohide]="false" (hidden)="showErrorToast = false">
-            <b>{{ errorMessage }}</b>
+    @if (showErrorToast()) {
+        <ngb-toast [autohide]="false" (hidden)="showErrorToast.set(false)">
+            <b>{{ errorMessage() }}</b>
         </ngb-toast>
     }
     <div class="row">
@@ -29,6 +29,9 @@
             </div>
         <div class="col-1 mt-3">
             <a [routerLink]="['/register']" style="text-decoration: none;">Register</a>
+        </div>
+        <div class="col-2 mt-3">
+            <a [routerLink]="['/forgot-password']" style="text-decoration: none;">Forgot password?</a>
         </div>
     </div>
 </div>

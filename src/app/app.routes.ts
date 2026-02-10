@@ -14,6 +14,10 @@ import {SseComponent} from "./course/sse/sse.component";
 import {LoginComponent} from "./auth/login/login.component";
 import {RegisterComponent} from "./auth/register/register.component";
 import {VerifyEmailComponent} from "./auth/verify-email/verify-email.component";
+import {ForgotPasswordComponent} from "./auth/forgot-password/forgot-password.component";
+import {ResetPasswordComponent} from "./auth/reset-password/reset-password.component";
+import {ChangePasswordComponent} from "./auth/change-password/change-password.component";
+import {UserProfileComponent} from "./auth/user-profile/user-profile.component";
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -32,4 +36,8 @@ export const routes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
     {path: 'verify-email', component: VerifyEmailComponent},
+    {path: 'forgot-password', component: ForgotPasswordComponent},
+    {path: 'reset-password', component: ResetPasswordComponent},
+    {path: 'change-password', component: ChangePasswordComponent},
+    {path: 'profile', component: UserProfileComponent},
 ];

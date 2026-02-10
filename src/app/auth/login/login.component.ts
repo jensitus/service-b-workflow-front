@@ -1,59 +1,54 @@
-import {Component, inject, OnDestroy, OnInit} from '@angular/core';
+import {Component, DestroyRef, inject, model, signal} from '@angular/core';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {FormsModule} from "@angular/forms";
 import {LoginService} from "../login.service";
-import {Subscription} from "rxjs";
 import {NgbToast} from "@ng-bootstrap/ng-bootstrap";
 import {Router, RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-login',
-  standalone: true,
-    imports: [
-        FormsModule,
-        NgbToast,
-        RouterLink
-    ],
+  imports: [
+    FormsModule,
+    NgbToast,
+    RouterLink
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent implements OnInit, OnDestroy {
-  username: string;
-  password: string;
-  private loginService = inject(LoginService);
-  private router =  inject(Router);
-  private subscriptions: Subscription[] = [];
-  showErrorToast: boolean = false;
-  errorMessage: string;
-  successMessage: string;
-  invalidLogin = false;
-  loginSuccess = false;
+export class LoginComponent {
+  private readonly loginService = inject(LoginService);
+  private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
 
+  readonly username = model('');
+  readonly password = model('');
+  readonly showErrorToast = signal(false);
+  readonly errorMessage = signal('');
+  readonly successMessage = signal('');
+  readonly invalidLogin = signal(false);
+  readonly loginSuccess = signal(false);
+
+  constructor() {
+    this.loginService.logout();
+  }
 
   login() {
-    this.subscriptions.push(
-      this.loginService.login(this.username, this.password).subscribe({
+    this.loginService.login(this.username(), this.password())
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
         next: result => {
-          this.invalidLogin = false;
-          this.loginSuccess = true;
-          this.successMessage = 'Login Successful.';
+          this.invalidLogin.set(false);
+          this.loginSuccess.set(true);
+          this.successMessage.set('Login Successful.');
           this.loginService.registerSuccessfulLogin(result);
-          this.router.navigate(['/new-task-list']).then();
+          this.router.navigate(['/new-task-list']);
         },
         error: err => {
-          this.showErrorToast = true;
-          this.errorMessage = err.error.text;
-          this.invalidLogin = true;
-          this.loginSuccess = false;
+          this.showErrorToast.set(true);
+          this.errorMessage.set(err.error.text);
+          this.invalidLogin.set(true);
+          this.loginSuccess.set(false);
         }
-      })
-    )
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(sub => sub.unsubscribe());
-  }
-
-  ngOnInit(): void {
-    this.loginService.logout();
+      });
   }
 }

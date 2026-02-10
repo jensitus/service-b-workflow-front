@@ -1,15 +1,15 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {UserResponse} from "../../../../auth/user-response";
 import {LoginService} from "../../../../auth/login.service";
-import {NavigationEnd, Router} from "@angular/router";
+import {NavigationEnd, Router, RouterLink} from "@angular/router";
 import {AvatarComponent} from "../../../../shared/avatar/avatar.component";
 
 @Component({
     selector: 'app-header',
-    standalone: true,
     templateUrl: './header.component.html',
     imports: [
-        AvatarComponent
+        AvatarComponent,
+        RouterLink
     ],
     styleUrls: ['./header.component.scss']
 })

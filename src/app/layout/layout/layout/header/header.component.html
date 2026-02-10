@@ -1,10 +1,13 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
-            <span class="text-danger">
+            <span class="text-danger text-lg-center">
                 <i class="bi bi-gear"></i>
             </span> &nbsp;
-            service-b.org</a>
+            <span>
+                service - b . org
+            </span>
+        </a>
         <button class="navbar-toggler"
                 (click)="toggleSidebar()"
                 type="button"
@@ -21,16 +24,15 @@
 
             </ul>
             <div class="nav-item">
-                <i class="bi bi-box-arrow-right"></i>
-                &nbsp;
-                <app-avatar [avatarUrl]="currentUser?.avatarUrl"
-                            [username]="currentUser?.username"
-                            [email]="currentUser?.email"
-                            size="sm"
-                            class="me-2">
-                </app-avatar>
-                &nbsp;
-                {{ currentUser?.username }}
+                <a [routerLink]="['/profile']" class="text-decoration-none text-dark d-inline-flex align-items-center">
+                    <app-avatar [avatarUrl]="currentUser?.avatarUrl"
+                                [username]="currentUser?.username"
+                                [email]="currentUser?.email"
+                                size="sm"
+                                class="me-2">
+                    </app-avatar>
+                    {{ currentUser?.username }}
+                </a>
                 &nbsp;
                 <i class="bi bi-laptop"></i>
                 &nbsp;

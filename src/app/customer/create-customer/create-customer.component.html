@@ -1,5 +1,12 @@
-<div class="row">
-  <div class="col-md-4">
+<div class="container py-4">
+  <div class="row mb-4">
+    <div class="col">
+      <h3>Create Customer Profile</h3>
+      <p class="text-muted">Complete your customer profile to request insurance.</p>
+    </div>
+  </div>
+  <div class="row">
+  <div class="col-md-6">
     <div class="row pt-3">
       <div class="col">
         <label for="firstname">First Name</label>
@@ -57,7 +64,11 @@
     <div class="row pt-3">
       <div class="col">
         <label for="email">Email</label>
-        <input id="email" type="email" [(ngModel)]="email" class="form-control">
+        <input id="email" type="email" [(ngModel)]="email" class="form-control" readonly>
+        <small class="text-muted">
+          <i class="bi bi-info-circle me-1"></i>
+          Email is linked to your user account
+        </small>
       </div>
     </div>
 
@@ -98,14 +109,15 @@
 
     <div class="row pt-3">
       <div class="col">
-        <button class="btn btn-sm btn-outline-success" (click)="create()">Create</button>
+        <button class="btn btn-outline-success" (click)="create()">Create Customer Profile</button>
       </div>
     </div>
-    <div class="row">
+    <div class="row pt-2">
       <div class="col">
-        <small><i>* All fields are mandatory!</i></small>
+        <small class="text-muted"><i>* All fields are mandatory!</i></small>
       </div>
     </div>
   </div>
+</div>
 </div>
 

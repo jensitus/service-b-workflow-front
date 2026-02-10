@@ -78,7 +78,7 @@ export class RequestHouseholdComponent implements OnInit, OnDestroy {
         next: value => {
           let message: Message = value;
           console.log(message.text)
-          this.router.navigate(['/customers', this.customerId]).then();
+          this.router.navigate(['/profile']);
         },
         error: error => console.log(error),
       })

@@ -1,14 +1,11 @@
 import {Component, inject, OnInit} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { LoginService } from '../login.service';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from "../auth.service";
-import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-verify-email',
   standalone: true,
     imports: [
-        NgIf
     ],
   templateUrl: './verify-email.component.html',
   styleUrl: './verify-email.component.scss'
@@ -20,7 +17,6 @@ export class VerifyEmailComponent implements OnInit {
 
     private route = inject(ActivatedRoute);
     private router = inject(Router);
-    private loginService = inject(LoginService);
     private authService = inject(AuthService);
 
     ngOnInit(): void {

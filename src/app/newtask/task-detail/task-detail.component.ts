@@ -3,7 +3,7 @@ import {NewTaskService} from "../new-task.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {TaskDto} from "../task.model";
-import {DatePipe, JsonPipe, KeyValuePipe} from "@angular/common";
+import {DatePipe, KeyValuePipe} from "@angular/common";
 import {TaskConfig} from "../../task/task-config";
 import {TaskFormComponent} from "../../task/task-form/task-form.component";
 import {CompleteTaskEvent} from "../../task/CompleteTaskEvent";
@@ -15,7 +15,6 @@ import {BpmnViewerComponent} from "../bpmn-viewer/bpmn-viewer.component";
     imports: [
         ReactiveFormsModule,
         DatePipe,
-        JsonPipe,
         KeyValuePipe,
         TaskFormComponent,
         BpmnViewerComponent
