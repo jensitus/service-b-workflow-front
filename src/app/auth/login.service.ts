@@ -1,4 +1,4 @@
-import {inject, Injectable} from '@angular/core';
+import {inject, Injectable, signal} from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Observable, tap} from "rxjs";
@@ -16,6 +16,10 @@ export class LoginService {
     public password: String;
     private http = inject(HttpClient);
     private router = inject(Router);
+
+    readonly currentUser = signal<UserResponse | null>(
+        JSON.parse(sessionStorage.getItem('authenticatedUser') ?? 'null')
+    );
 
     login(username: string, password: string): Observable<LoginResponse> {
         let loginRequest: { username: string, password: string } = {
@@ -43,11 +47,13 @@ export class LoginService {
     registerSuccessfulLogin(response: LoginResponse) {
         sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, JSON.stringify(response));
         sessionStorage.setItem('token', response.token);
+        this.currentUser.set(this.getLoggedInUserName());
     }
 
     logout() {
         sessionStorage.removeItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
         sessionStorage.removeItem('token');
+        this.currentUser.set(null);
 
         this.username = null;
         this.password = null;

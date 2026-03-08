@@ -3,7 +3,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {FormsModule} from "@angular/forms";
 import {LoginService} from "../login.service";
 import {NgbToast} from "@ng-bootstrap/ng-bootstrap";
-import {Router, RouterLink} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -18,6 +18,7 @@ import {Router, RouterLink} from "@angular/router";
 export class LoginComponent {
   private readonly loginService = inject(LoginService);
   private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
   private readonly destroyRef = inject(DestroyRef);
 
   readonly username = model('');
@@ -28,9 +29,6 @@ export class LoginComponent {
   readonly invalidLogin = signal(false);
   readonly loginSuccess = signal(false);
 
-  constructor() {
-    this.loginService.logout();
-  }
 
   login() {
     this.loginService.login(this.username(), this.password())
@@ -41,7 +39,8 @@ export class LoginComponent {
           this.loginSuccess.set(true);
           this.successMessage.set('Login Successful.');
           this.loginService.registerSuccessfulLogin(result);
-          this.router.navigate(['/new-task-list']);
+          const returnTo = this.route.snapshot.queryParamMap.get('returnTo');
+          this.router.navigate([returnTo ? `/${returnTo}` : '/profile']);
         },
         error: err => {
           this.showErrorToast.set(true);

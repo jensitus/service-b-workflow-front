@@ -1,6 +1,5 @@
 import {Routes} from "@angular/router";
 import {HomeComponent} from "./home/home.component";
-import {TaskListComponent} from "./task/task-list/task-list.component";
 import {NewTaskListComponent} from "./newtask/new-task-list/new-task-list.component";
 import {TaskDetailComponent} from "./newtask/task-detail/task-detail.component";
 import {WorkflowListComponent} from "./workflow/workflow-list/workflow-list.component";
@@ -18,16 +17,15 @@ import {ForgotPasswordComponent} from "./auth/forgot-password/forgot-password.co
 import {ResetPasswordComponent} from "./auth/reset-password/reset-password.component";
 import {ChangePasswordComponent} from "./auth/change-password/change-password.component";
 import {UserProfileComponent} from "./auth/user-profile/user-profile.component";
+import {CompleteProfileComponent} from "./auth/complete-profile/complete-profile.component";
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
     {path: 'home', component: HomeComponent},
-    {path: 'task-list', component: TaskListComponent},
     {path: 'new-task-list', component: NewTaskListComponent},
     {path: 'tasks/:id', component: TaskDetailComponent},
     {path: 'workflow-list', component: WorkflowListComponent},
     {path: 'workflow/:id/:version', component: WorkflowComponent},
-    {path: 'tasks/:id', component: TaskComponent},
     {path: 'create-customer', component: CreateCustomerComponent},
     {path: 'customers', component: CustomerListComponent},
     {path: 'customers/:id', component: CustomerComponent},
@@ -40,4 +38,5 @@ export const routes: Routes = [
     {path: 'reset-password', component: ResetPasswordComponent},
     {path: 'change-password', component: ChangePasswordComponent},
     {path: 'profile', component: UserProfileComponent},
+    {path: 'complete-profile', component: CompleteProfileComponent},
 ];

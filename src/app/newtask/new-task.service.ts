@@ -17,13 +17,18 @@ export class NewTaskService {
         page: number = 0,
         size: number = 20,
         sortField: string = 'created',
-        sortDirection: 'asc' | 'desc' = 'desc'
+        sortDirection: 'asc' | 'desc' = 'desc',
+        assignee?: string | null
     ): Observable<Page<TaskDto>> {
-        const params = new HttpParams()
+        let params = new HttpParams()
             .set('tenantId', tenantId)
             .set('page', page.toString())
             .set('size', size.toString())
             .set('sort', `${sortField},${sortDirection}`);
+
+        if (assignee !== undefined) {
+            params = params.set('assignee', assignee ?? '');
+        }
 
         return this.http.get<Page<TaskDto>>(`${this.apiUrl}/tenant_id/${tenantId}/paginated`, { params });
     }
@@ -42,6 +47,10 @@ export class NewTaskService {
 
     completeTask(id: string, completeTaskEvent: CompleteTaskEvent): Observable<void> {
         return this.http.post<void>(`${this.apiUrl}/${id}/complete`, completeTaskEvent);
+    }
+
+    getTasksByInsuranceId(insuranceId: string): Observable<TaskDto[]> {
+        return this.http.get<TaskDto[]>(`${this.apiUrl}/by-insurance/${insuranceId}`);
     }
 
 }

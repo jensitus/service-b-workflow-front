@@ -49,4 +49,8 @@ export class VerifyEmailComponent implements OnInit {
         this.router.navigate(['/login']);
     }
 
+    navigateToCompleteProfile(): void {
+        this.router.navigate(['/login'], {queryParams: {returnTo: 'complete-profile'}});
+    }
+
 }

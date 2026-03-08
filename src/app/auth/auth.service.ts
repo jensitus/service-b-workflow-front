@@ -53,6 +53,7 @@ export class AuthService {
     }
 
     forgotPassword(request: ForgotPasswordRequest): Observable<MessageResponse> {
+        console.log("FORGOT PASSWORD", request);
         return this.http.post<MessageResponse>(`${this.baseUrl}/forgot-password`, request);
     }
 

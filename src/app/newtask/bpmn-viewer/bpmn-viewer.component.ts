@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import BpmnJS from 'bpmn-js/lib/NavigatedViewer';
-import {Subscription} from "rxjs";
+import {forkJoin, Subscription} from "rxjs";
 import {CommonModule} from "@angular/common";
 
 interface DiagramResponse {
@@ -36,6 +36,7 @@ export class BpmnViewerComponent implements OnInit, OnDestroy, OnChanges {
     @Input() workflowKey: string = '';
     @Input() tenantId: string = '';
     @Input() processInstanceKey?: string;
+    @Input() processInstanceKeys?: string[];
     @ViewChild('canvas', { static: true }) canvasRef!: ElementRef<HTMLDivElement>;
 
     private viewer: any;
@@ -52,7 +53,8 @@ export class BpmnViewerComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (changes['processInstanceKey'] && !changes['processInstanceKey'].firstChange) {
+        if ((changes['processInstanceKey'] && !changes['processInstanceKey'].firstChange) ||
+            (changes['processInstanceKeys'] && !changes['processInstanceKeys'].firstChange)) {
             this.highlightActiveElements();
         }
     }
@@ -136,14 +138,21 @@ export class BpmnViewerComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     private loadAndHighlightFlowNodes(): void {
-        if (!this.processInstanceKey) {
+        const keys = this.processInstanceKeys?.length
+            ? this.processInstanceKeys
+            : this.processInstanceKey ? [this.processInstanceKey] : [];
+
+        if (keys.length === 0) {
             return;
         }
-        const url = `http://localhost:8080/workflows/diagram/flow-node-instance/${this.processInstanceKey}`;
 
-        const sub = this.http.get<FlowNodeInstance[]>(url).subscribe({
-            next: (flowNodeInstances: FlowNodeInstance[]) => {
-                this.applyHighlights(flowNodeInstances);
+        const requests = keys.map(key =>
+            this.http.get<FlowNodeInstance[]>(`http://localhost:8080/workflows/diagram/flow-node-instance/${key}`)
+        );
+
+        const sub = forkJoin(requests).subscribe({
+            next: (results) => {
+                this.applyHighlights(results.flat());
             },
             error: (err) => {
                 console.error('Error loading flow node instances:', err);

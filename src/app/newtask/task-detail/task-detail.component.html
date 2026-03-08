@@ -3,7 +3,7 @@
     <!-- Header with Navigation -->
     <div class="header">
         <button class="back-button" (click)="goBack()">
-            ← Back to Task List
+            ← {{ returnTo() === 'profile' ? 'Back to Profile' : 'Back to Task List' }}
         </button>
         @if (task()) {
             <h2>{{ task().name }}</h2>

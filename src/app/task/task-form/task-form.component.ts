@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormsModule, NgForm} from "@angular/forms";
 import {TaskConfig} from "../task-config";
-import {JsonPipe, NgForOf, NgIf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-task-form',
@@ -10,7 +10,6 @@ import {JsonPipe, NgForOf, NgIf} from "@angular/common";
         FormsModule,
         NgForOf,
         NgIf,
-        JsonPipe
     ],
   templateUrl: './task-form.component.html',
   styleUrl: './task-form.component.scss'

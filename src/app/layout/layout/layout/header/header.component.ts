@@ -1,5 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {UserResponse} from "../../../../auth/user-response";
+import {Component, inject} from '@angular/core';
 import {LoginService} from "../../../../auth/login.service";
 import {NavigationEnd, Router, RouterLink} from "@angular/router";
 import {AvatarComponent} from "../../../../shared/avatar/avatar.component";
@@ -13,12 +12,13 @@ import {AvatarComponent} from "../../../../shared/avatar/avatar.component";
     ],
     styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
-  currentUser: UserResponse | undefined;
-    public pushRightClass: string;
+export class HeaderComponent {
+    public pushRightClass: string = 'push-right';
 
-  private loginService = inject(LoginService);
-  private router = inject(Router);
+    private loginService = inject(LoginService);
+    private router = inject(Router);
+
+    readonly currentUser = this.loginService.currentUser;
 
     constructor() {
         this.router.events.subscribe(val => {
@@ -30,12 +30,6 @@ export class HeaderComponent implements OnInit {
                 this.toggleSidebar();
             }
         });
-    }
-
-    ngOnInit(): void {
-        this.pushRightClass = 'push-right';
-        this.currentUser = this.loginService.getLoggedInUserName();
-
     }
 
     isToggled(): boolean {
@@ -52,9 +46,4 @@ export class HeaderComponent implements OnInit {
         const dom: any = document.querySelector('body');
         dom.classList.toggle('rtl');
     }
-
-    getCurrentUser() {
-        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    }
-
 }

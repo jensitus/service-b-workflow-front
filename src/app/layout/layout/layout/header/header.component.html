@@ -23,85 +23,22 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
             </ul>
-            <div class="nav-item">
-                <a [routerLink]="['/profile']" class="text-decoration-none text-dark d-inline-flex align-items-center">
-                    <app-avatar [avatarUrl]="currentUser?.avatarUrl"
-                                [username]="currentUser?.username"
-                                [email]="currentUser?.email"
-                                size="sm"
-                                class="me-2">
-                    </app-avatar>
-                    {{ currentUser?.username }}
-                </a>
-                &nbsp;
-                <i class="bi bi-laptop"></i>
-                &nbsp;
-            </div>
-        </div>
-    </div>
-</nav>
-
-<!--
-<nav class="navbar navbar-expand-lg nav-custom-header fixed-top">
-    <div class="container-fluid">
-        <a class="navbar-brand" [routerLink]="['/']"><b class="text-secondary">service-b.org</b></a>
-
-        <button class="navbar-toggler" type="button" (click)="toggleSidebar()">
-            <fa-icon class="text-warning" [icon]="faBars"></fa-icon>
-        </button>
-        <div class="collapse navbar-collapse">
-
-            <div class="navbar-nav navbar-nav-icons">
+            @if (currentUser()) {
                 <div class="nav-item">
-                    <fa-icon [icon]="faGear"></fa-icon>
+                    <a [routerLink]="['/profile']" class="text-decoration-none text-dark d-inline-flex align-items-center">
+                        <app-avatar [avatarUrl]="currentUser()?.avatarUrl"
+                                    [username]="currentUser()?.username"
+                                    [email]="currentUser()?.email"
+                                    size="sm"
+                                    class="me-2">
+                        </app-avatar>
+                        {{ currentUser()?.username }}
+                    </a>
                     &nbsp;
-                    <fa-icon [icon]="faBracket"></fa-icon>
+                    <i class="bi bi-laptop"></i>
                     &nbsp;
-                    <app-avatar [avatarUrl]="currentUser?.avatarUrl"
-                                [username]="currentUser?.username"
-                                [email]="currentUser?.email"
-                                size="sm"
-                                class="me-2">
-                    </app-avatar>
-                    &nbsp;
-                    {{ currentUser?.username }}
-                    &nbsp;
-                    <fa-icon [icon]="faLaptop"></fa-icon>
-                    &nbsp;
-                    <fa-icon [icon]="faBars"></fa-icon>
                 </div>
-            </div>
+            }
         </div>
     </div>
 </nav>
--->
-
-
-<!--<nav class="navbar fixed-top nav-custom-header">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-            <img src="./assets/images/service-b-logo.svg" alt="service-b.org" width="50" height="50">
-            service-b.org
-        </a>
-        <div class="navbar-nav navbar-nav-icons">
-            <div class="nav-item">
-                <fa-icon [icon]="faGear"></fa-icon>
-                &nbsp;
-                <fa-icon [icon]="faBracket"></fa-icon>
-                &nbsp;
-                <app-avatar [avatarUrl]="currentUser?.avatarUrl"
-                            [username]="currentUser?.username"
-                            [email]="currentUser?.email"
-                            size="sm"
-                            class="me-2">
-                </app-avatar>
-                &nbsp;
-                {{currentUser?.username}}
-                &nbsp;
-                <fa-icon [icon]="faLaptop"></fa-icon>
-                &nbsp;
-                <fa-icon [icon]="faBars"></fa-icon>
-            </div>
-        </div>
-    </div>
-</nav>-->

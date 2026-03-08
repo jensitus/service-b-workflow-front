@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, OnInit, Output} from '@angular/core';
+import {Component, computed, EventEmitter, inject, Output} from '@angular/core';
 import {NavigationEnd, Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {LoginService} from "../../../../auth/login.service";
 import {NgClass} from "@angular/common";
@@ -13,15 +13,16 @@ import {NgClass} from "@angular/common";
     ],
     styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent implements OnInit{
+export class SidebarComponent {
 
   pushRightClass: string | undefined;
   collapsed: boolean | undefined;
   showMenu: string | undefined;
   isActive: boolean | undefined;
-  isLoggedIn: boolean | undefined;
   @Output() collapsedEvent = new EventEmitter<boolean>();
   private loginService = inject(LoginService);
+
+  readonly isLoggedIn = computed(() => this.loginService.currentUser() !== null);
 
   constructor(public router: Router) {
     this.router.events.subscribe(val => {
@@ -33,10 +34,6 @@ export class SidebarComponent implements OnInit{
         this.toggleSidebar();
       }
     });
-  }
-
-  ngOnInit(): void {
-    this.isLoggedIn = this.loginService.isUserLoggedIn();
   }
 
   isToggled(): boolean {

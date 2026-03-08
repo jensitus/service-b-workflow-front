@@ -4,6 +4,9 @@ import { FormsModule } from '@angular/forms';
 import {NewTaskService} from "../new-task.service";
 import {TaskDto} from "../task.model";
 import {Router} from "@angular/router";
+import {LoginService} from "../../auth/login.service";
+
+export type TaskFilterMode = 'my-tasks' | 'available' | 'all';
 
 @Component({
   selector: 'app-new-task-list',
@@ -16,6 +19,7 @@ export class NewTaskListComponent implements OnInit {
 
     private newTaskService = inject(NewTaskService);
     private router = inject(Router);
+    private loginService = inject(LoginService);
 
     // Signals for reactive state management
     tasks = signal<TaskDto[]>([]);
@@ -28,6 +32,8 @@ export class NewTaskListComponent implements OnInit {
     sortDirection = signal<'asc' | 'desc'>('desc');
     loading = signal<boolean>(false);
     error = signal<string | null>(null);
+    filterMode = signal<TaskFilterMode>('my-tasks');
+    currentUsername = signal<string | null>(null);
 
     // Computed values
     hasNextPage = computed(() => this.currentPage() < this.totalPages() - 1);
@@ -38,6 +44,11 @@ export class NewTaskListComponent implements OnInit {
     );
 
     ngOnInit(): void {
+        // Get current user
+        const user = this.loginService.getLoggedInUserName();
+        if (user) {
+            this.currentUsername.set(user.username);
+        }
         // Set default tenant ID or get from route/service
         this.tenantId.set('insurance');
         this.loadTasks();
@@ -52,12 +63,27 @@ export class NewTaskListComponent implements OnInit {
         this.loading.set(true);
         this.error.set(null);
 
+        // Determine assignee filter based on mode
+        let assigneeFilter: string | null | undefined;
+        switch (this.filterMode()) {
+            case 'my-tasks':
+                assigneeFilter = this.currentUsername();
+                break;
+            case 'available':
+                assigneeFilter = null; // null means unassigned
+                break;
+            case 'all':
+                assigneeFilter = undefined; // undefined means no filter
+                break;
+        }
+
         this.newTaskService.getTasksPaginated(
             this.tenantId(),
             this.currentPage(),
             this.pageSize(),
             this.sortField(),
-            this.sortDirection()
+            this.sortDirection(),
+            assigneeFilter
         ).subscribe({
             next: (page) => {
                 this.tasks.set(page.content);
@@ -99,6 +125,12 @@ export class NewTaskListComponent implements OnInit {
 
     onTenantIdChange(newTenantId: string): void {
         this.tenantId.set(newTenantId);
+        this.currentPage.set(0);
+        this.loadTasks();
+    }
+
+    onFilterModeChange(mode: TaskFilterMode): void {
+        this.filterMode.set(mode);
         this.currentPage.set(0);
         this.loadTasks();
     }

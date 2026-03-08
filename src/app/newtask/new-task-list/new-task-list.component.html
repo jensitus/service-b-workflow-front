@@ -3,6 +3,30 @@
     <div class="header">
         <h2>Task List</h2>
 
+        <!-- Task Filter Mode -->
+        <div class="filter-mode-section">
+            <div class="filter-buttons">
+                <button
+                    [class.active]="filterMode() === 'my-tasks'"
+                    (click)="onFilterModeChange('my-tasks')"
+                    [disabled]="loading()">
+                    My Tasks
+                </button>
+                <button
+                    [class.active]="filterMode() === 'available'"
+                    (click)="onFilterModeChange('available')"
+                    [disabled]="loading()">
+                    Available
+                </button>
+                <button
+                    [class.active]="filterMode() === 'all'"
+                    (click)="onFilterModeChange('all')"
+                    [disabled]="loading()">
+                    All Tasks
+                </button>
+            </div>
+        </div>
+
         <!-- Tenant ID Filter -->
         <div class="filter-section">
             <label for="tenantId">Tenant ID:</label>
@@ -145,7 +169,17 @@
     <!-- Empty State -->
     @if (!loading() && tasks().length === 0 && !error()) {
         <div class="empty-state">
-            <p>No tasks found for tenant: {{ tenantId() }}</p>
+            @switch (filterMode()) {
+                @case ('my-tasks') {
+                    <p>No tasks assigned to you.</p>
+                }
+                @case ('available') {
+                    <p>No unassigned tasks available.</p>
+                }
+                @case ('all') {
+                    <p>No tasks found for tenant: {{ tenantId() }}</p>
+                }
+            }
         </div>
     }
 </div>

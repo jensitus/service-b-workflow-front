@@ -91,7 +91,7 @@
                     <div class="alert alert-info mb-4">
                         <h5 class="alert-heading">Complete Your Profile</h5>
                         <p class="mb-2">To request insurance, you need to create a customer profile first.</p>
-                        <a [routerLink]="['/create-customer']" class="btn btn-primary btn-sm">
+                        <a [routerLink]="['/complete-profile']" class="btn btn-primary btn-sm">
                             Create Customer Profile
                         </a>
                     </div>
@@ -133,6 +133,10 @@
                         }
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
 
                 <!-- Existing Insurances Section -->
                 @if (customerInsurances().length > 0) {
@@ -151,11 +155,12 @@
                                             <th>Coverage</th>
                                             <th>Status</th>
                                             <th>Created</th>
+                                            <th>Current Task</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @for (insurance of customerInsurances(); track insurance.id) {
-                                            <tr>
+                                            <tr [class.table-primary]="highlightedInsuranceId() === insurance.id">
                                                 <td>{{ insurance.insuranceNumber }}</td>
                                                 <td>{{ insurance.name || insurance.insuranceType }}</td>
                                                 <td>{{ insurance.insuranceCoverage }}</td>
@@ -165,12 +170,72 @@
                                                     </span>
                                                 </td>
                                                 <td>{{ insurance.createdAt | date:'shortDate' }}</td>
+                                                <td>
+                                                    @if (insuranceTaskMap().get(insurance.id)) {
+                                                        <a [routerLink]="['/tasks', insuranceTaskMap().get(insurance.id)!.taskId]"
+                                                           [queryParams]="{returnTo: 'profile'}"
+                                                           class="badge bg-info text-decoration-none">
+                                                            {{ insuranceTaskMap().get(insurance.id)!.name }}
+                                                        </a>
+                                                    } @else {
+                                                        <span class="text-muted small">—</span>
+                                                    }
+                                                </td>
                                             </tr>
                                         }
                                     </tbody>
                                 </table>
                             </div>
                         </div>
+                    </div>
+                }
+
+                <!-- Active Process Diagram -->
+                @if (activeProcessInstances().length > 0) {
+                    <div class="bpmn-section">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <h5 class="mb-0">
+                                <i class="bi bi-diagram-3 me-2"></i>Insurance Request in Progress
+                            </h5>
+                        </div>
+
+                        <!-- Process switcher (only shown when multiple processes are running) -->
+                        @if (activeProcessInstances().length > 1) {
+                            <ul class="nav nav-pills mb-3">
+                                <li class="nav-item">
+                                    <button class="nav-link" [class.active]="selectedProcessId() === null"
+                                            (click)="selectProcess(null)">
+                                        All
+                                    </button>
+                                </li>
+                                @for (process of activeProcessInstances(); track process.id; let i = $index) {
+                                    <li class="nav-item">
+                                        <button class="nav-link"
+                                                [class.active]="selectedProcessId() === process.id"
+                                                (click)="selectProcess(process.id)">
+                                            Process {{ i + 1 }}
+                                        </button>
+                                    </li>
+                                }
+                            </ul>
+                        }
+
+                        <div class="bpmn-legend">
+                            <span class="legend-item">
+                                <span class="legend-badge badge-active">▶</span> Active
+                            </span>
+                            <span class="legend-item">
+                                <span class="legend-badge badge-completed">✓</span> Completed
+                            </span>
+                            <span class="legend-item">
+                                <span class="legend-badge badge-incident">⚠</span> Incident
+                            </span>
+                        </div>
+                        <app-bpmn-viewer
+                            [workflowKey]="'insurance_showcase'"
+                            [tenantId]="'insurance'"
+                            [processInstanceKeys]="displayedProcessInstanceIds()">
+                        </app-bpmn-viewer>
                     </div>
                 }
             </div>

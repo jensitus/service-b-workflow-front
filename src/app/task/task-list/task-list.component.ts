@@ -1,3 +1,4 @@
+/*
 import {
     Component,
     Directive,
@@ -172,3 +173,4 @@ export class TaskListComponent implements OnInit, OnDestroy {
   }
 
 }
+*/

@@ -35,6 +35,7 @@ export class TaskDetailComponent implements OnInit {
     editMode = signal<boolean>(false);
     saving = signal<boolean>(false);
     successMessage = signal<string | null>(null);
+    returnTo = signal<string | null>(null);
 
     taskForm: FormGroup;
     additionalInfo: Map<string, Map<string, string>>;
@@ -52,6 +53,7 @@ export class TaskDetailComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.returnTo.set(this.route.snapshot.queryParamMap.get('returnTo'));
         const taskId = this.route.snapshot.paramMap.get('id');
         if (taskId) {
             this.loadTask(taskId);
@@ -182,6 +184,10 @@ export class TaskDetailComponent implements OnInit {
     }
 
     goBack(): void {
+        if (this.returnTo() === 'profile') {
+            this.router.navigate(['/profile']);
+            return;
+        }
         const tenantId = this.task()?.tenantId;
         if (tenantId) {
             this.router.navigate(['/new-task-list'], {queryParams: {tenantId}});

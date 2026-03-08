@@ -14,7 +14,7 @@
       <i class="bi bi-people"></i>&nbsp;
       <span>{{ 'Customers' }}</span>
     </a>
-      @if (!isLoggedIn) {
+      @if (!isLoggedIn()) {
           <a [routerLink]="['/login']" [routerLinkActive]="['router-link-active']" class="list-group-item">
               <i class="bi bi-person"></i>&nbsp;
               <span>{{ 'Login' }}</span>
