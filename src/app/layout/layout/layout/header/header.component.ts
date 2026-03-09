@@ -2,13 +2,16 @@ import {Component, inject} from '@angular/core';
 import {LoginService} from "../../../../auth/login.service";
 import {NavigationEnd, Router, RouterLink} from "@angular/router";
 import {AvatarComponent} from "../../../../shared/avatar/avatar.component";
+import {TranslateModule} from "@ngx-translate/core";
+import {LanguageService} from "../../../../shared/language.service";
 
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
     imports: [
         AvatarComponent,
-        RouterLink
+        RouterLink,
+        TranslateModule
     ],
     styleUrls: ['./header.component.scss']
 })
@@ -17,6 +20,7 @@ export class HeaderComponent {
 
     private loginService = inject(LoginService);
     private router = inject(Router);
+    readonly languageService = inject(LanguageService);
 
     readonly currentUser = this.loginService.currentUser;
 

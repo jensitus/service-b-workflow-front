@@ -2,12 +2,12 @@
     <div class="col-md-6">
         <div class="card">
             <div class="card-header">
-                Tariff and services
+                {{ 'INSURANCE.TARIFF' | translate }}
             </div>
             <div class="card-body">
                 <div class="row pt-2">
                     <div class="col-md-4">
-                        Insurance sum:
+                        {{ 'INSURANCE.INSURANCE_SUM' | translate }}
                     </div>
                     <div class="col-md-2"></div>
                     <div class="col-md-6">
@@ -19,13 +19,13 @@
 
                 <div class="row pt-2">
                     <div class="col-md-4">
-                        Insurance coverage:
+                        {{ 'INSURANCE.INSURANCE_COVERAGE' | translate }}
                     </div>
                     <div class="col-md-6">
                         @for (cover of coverings; track cover) {
                             <div class="row">
                                 <div class="col">
-                                    {{ cover }}
+                                    {{ coverageTranslationKey(cover) | translate }}
                                 </div>
                                 <div class="col">
                                     <input type="radio" [value]="cover" name="coverings" [(ngModel)]="coverage"
@@ -42,7 +42,7 @@
     <div class="col-md-6">
         <div class="card">
             <div class="card-header">
-                Contractual conditions
+                {{ 'INSURANCE.CONTRACTUAL' | translate }}
             </div>
             <div class="card-body">
                 <div class="row">
@@ -50,12 +50,12 @@
 
                     </div>
                     <div class="col">
-                        {{ coverage }}
+                        {{ coverageTranslationKey(coverage) | translate }}
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
-                        Payment method:
+                        {{ 'INSURANCE.PAYMENT_METHOD' | translate }}
                     </div>
                 </div>
                 <div class="row pt-2">
@@ -70,7 +70,7 @@
                                            (ngModelChange)="emitPaymentSchedule(paymentSchedule)">
                                 </div>
                                 <div class="col-6">
-                                    {{ schedule.key }}
+                                    {{ scheduleTranslationKey(schedule.key) | translate }}
                                 </div>
                                 <div class="col-4">
                                     {{ '€ ' + schedule.value + '.-' }}

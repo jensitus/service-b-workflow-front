@@ -1,17 +1,17 @@
-<h3>Customers</h3>
+<h3>{{ 'CUSTOMER.LIST_TITLE' | translate }}</h3>
 @defer {
 <div class="row pt-3">
   <div class="col">
 
       @if (!customers) {
-        ... Loading
+        {{ 'CUSTOMER.LOADING' | translate }}
       }
       <table class="table">
         <thead>
         <tr>
           <th scope="col">#</th>
-          <th scope="col">First Name</th>
-          <th scope="col">Last Name</th>
+          <th scope="col">{{ 'CUSTOMER.FIRST_NAME' | translate }}</th>
+          <th scope="col">{{ 'CUSTOMER.LAST_NAME' | translate }}</th>
         </tr>
         </thead>
         <tbody>
@@ -31,10 +31,10 @@
         <div class="col">
             <a [routerLink]="['/create-customer']"  class="btn btn-outline-success">
                 <i class="bi bi-person-plus"></i>&nbsp;
-                <span>{{ 'Create Customer' }}</span>
+                <span>{{ 'CUSTOMER.CREATE' | translate }}</span>
             </a>
         </div>
     </div>
 } @placeholder {
-  ... Loading
+  {{ 'CUSTOMER.LOADING' | translate }}
 }

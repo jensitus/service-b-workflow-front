@@ -10,6 +10,7 @@ import {TaskListEntryDto} from "../../task/task-list-entry-dto";
 import {SseService} from "../../course/sse/sse.service";
 import {environment} from "../../../environments/environment";
 import {Insurance} from "../../insurance/insurance";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-customer',
@@ -19,7 +20,8 @@ import {Insurance} from "../../insurance/insurance";
     JsonPipe,
     KeyValuePipe,
     RouterLink,
-    DatePipe
+    DatePipe,
+    TranslateModule
   ],
   templateUrl: './customer.component.html',
   styleUrl: './customer.component.scss'

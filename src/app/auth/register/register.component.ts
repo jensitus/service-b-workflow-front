@@ -4,12 +4,14 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {Router, RouterLink} from '@angular/router';
 import {AuthService} from "../auth.service";
 import {UserRegistrationRequest} from "../user-registration-request";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-register',
   imports: [
     ReactiveFormsModule,
-    RouterLink
+    RouterLink,
+    TranslateModule
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'

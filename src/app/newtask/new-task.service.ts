@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {Page, TaskDto} from "./task.model";
 import {CompleteTaskEvent} from "../task/CompleteTaskEvent";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import {CompleteTaskEvent} from "../task/CompleteTaskEvent";
 export class NewTaskService {
 
     private http = inject(HttpClient);
-    private apiUrl = 'http://localhost:8080/api/tasks';
+    private apiUrl = `${environment.api_url}/api/tasks`;
 
     getTasksPaginated(
         tenantId: string,

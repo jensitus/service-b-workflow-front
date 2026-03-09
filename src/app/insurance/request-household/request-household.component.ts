@@ -7,19 +7,16 @@ import {Customer} from "../../customer/customer";
 import {FormsModule} from "@angular/forms";
 import {Router} from "@angular/router";
 import {Coverage} from "../coverage";
-import {Amount} from "../amount";
-import {JsonPipe, KeyValuePipe} from "@angular/common";
-import {ScheduleOfPayments} from "../schedule-of-payments";
 import {PaymentScheduleComponent} from "../payment-schedule/payment-schedule.component";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-request-household',
   standalone: true,
   imports: [
     FormsModule,
-    KeyValuePipe,
-    JsonPipe,
-    PaymentScheduleComponent
+    PaymentScheduleComponent,
+    TranslateModule
   ],
   templateUrl: './request-household.component.html',
   styleUrl: './request-household.component.scss'
@@ -35,14 +32,14 @@ export class RequestHouseholdComponent implements OnInit, OnDestroy {
   flood_risk: boolean = false;
   mudslide_risk: boolean = false;
   sufficientIncome: boolean = false;
-  insuranceSumSteps: number = 1;
+  // insuranceSumSteps: number = 1;
   insuranceSum: string = "€ 750 Tsd";
-  coverings: string[] = [Coverage.BASIS, Coverage.EXTENDED, Coverage.FULL];
+  // coverings: string[] = [Coverage.BASIS, Coverage.EXTENDED, Coverage.FULL];
   chosenCoverage: string = Coverage.BASIS;
   paymentSchedule: Map<string, number> = new Map();
-  scheduleOfPayments: ScheduleOfPayments;
-  mapScheduleOfPayments: Map<string, number> = new Map();
-  scheduleAmount: number[];
+  // scheduleOfPayments: ScheduleOfPayments;
+  // mapScheduleOfPayments: Map<string, number> = new Map();
+  // scheduleAmount: number[];
 
   ngOnDestroy(): void {
     this.subscription.forEach(s => s.unsubscribe());

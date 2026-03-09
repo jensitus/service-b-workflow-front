@@ -1,8 +1,8 @@
 <div class="register-container">
     <div class="register-card">
         <div class="register-header">
-            <h2>Create Account</h2>
-            <p class="text-muted">Join us today</p>
+            <h2>{{ 'AUTH.REGISTER.TITLE' | translate }}</h2>
+            <p class="text-muted">{{ 'AUTH.REGISTER.SUBTITLE' | translate }}</p>
         </div>
         @if (!registrationComplete()) {
             <div class="register-body">
@@ -10,7 +10,7 @@
 
                     <!-- Username -->
                     <div class="mb-3">
-                        <label for="username" class="form-label">Username *</label>
+                        <label for="username" class="form-label">{{ 'AUTH.REGISTER.USERNAME' | translate }}</label>
                         <input type="text"
                                 class="form-control"
                                 id="username"
@@ -19,10 +19,10 @@
                         @if (registerForm.get('username')?.touched) {
                             <div class="invalid-feedback">
                                 @if (registerForm.get('username')?.errors?.['required']) {
-                                    <span>Username is required</span>
+                                    <span>{{ 'AUTH.REGISTER.USERNAME_REQUIRED' | translate }}</span>
                                 }
                                 @if (registerForm.get('username')?.errors?.['minlength']) {
-                                    <span>Username must be at least 3 characters</span>
+                                    <span>{{ 'AUTH.REGISTER.USERNAME_MINLENGTH' | translate }}</span>
                                 }
                             </div>
                         }
@@ -30,7 +30,7 @@
 
                     <!-- Email -->
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email *</label>
+                        <label for="email" class="form-label">{{ 'AUTH.REGISTER.EMAIL' | translate }}</label>
                         <input type="email"
                                 class="form-control"
                                 id="email"
@@ -39,10 +39,10 @@
                         @if (registerForm.get('email')?.touched) {
                             <div class="invalid-feedback">
                                 @if (registerForm.get('email')?.errors?.['required']) {
-                                    <span>Email is required</span>
+                                    <span>{{ 'AUTH.REGISTER.EMAIL_REQUIRED' | translate }}</span>
                                 }
                                 @if (registerForm.get('email')?.errors?.['email']) {
-                                    <span>Invalid email format</span>
+                                    <span>{{ 'AUTH.REGISTER.EMAIL_INVALID' | translate }}</span>
                                 }
                             </div>
                         }
@@ -50,7 +50,7 @@
 
                     <!-- First Name -->
                     <div class="mb-3">
-                        <label for="firstName" class="form-label">First Name</label>
+                        <label for="firstName" class="form-label">{{ 'AUTH.REGISTER.FIRST_NAME' | translate }}</label>
                         <input type="text"
                                class="form-control"
                                id="firstName"
@@ -59,7 +59,7 @@
 
                     <!-- Last Name -->
                     <div class="mb-3">
-                        <label for="lastName" class="form-label">Last Name</label>
+                        <label for="lastName" class="form-label">{{ 'AUTH.REGISTER.LAST_NAME' | translate }}</label>
                         <input type="text"
                                class="form-control"
                                id="lastName"
@@ -68,7 +68,7 @@
 
                     <!-- Password -->
                     <div class="mb-3">
-                        <label for="password" class="form-label">Password *</label>
+                        <label for="password" class="form-label">{{ 'AUTH.REGISTER.PASSWORD' | translate }}</label>
                         <input type="password"
                                class="form-control"
                                id="password"
@@ -77,10 +77,10 @@
                         @if (registerForm.get('password')?.touched) {
                             <div class="invalid-feedback">
                                 @if (registerForm.get('password')?.errors?.['required']) {
-                                    <span>Password is required</span>
+                                    <span>{{ 'AUTH.REGISTER.PASSWORD_REQUIRED' | translate }}</span>
                                 }
                                 @if (registerForm.get('password')?.errors?.['minlength']) {
-                                    <span>Password must be at least 8 characters</span>
+                                    <span>{{ 'AUTH.REGISTER.PASSWORD_MINLENGTH' | translate }}</span>
                                 }
                             </div>
                         }
@@ -88,7 +88,7 @@
 
                     <!-- Confirm Password -->
                     <div class="mb-3">
-                        <label for="confirmPassword" class="form-label">Confirm Password *</label>
+                        <label for="confirmPassword" class="form-label">{{ 'AUTH.REGISTER.CONFIRM_PASSWORD' | translate }}</label>
                         <input type="password"
                                 class="form-control"
                                 id="confirmPassword"
@@ -97,10 +97,10 @@
                         @if (registerForm.get('confirmPassword')?.touched) {
                             <div class="invalid-feedback">
                                 @if (registerForm.get('confirmPassword')?.errors?.['required']) {
-                                    <span>Please confirm your password</span>
+                                    <span>{{ 'AUTH.REGISTER.CONFIRM_PASSWORD_REQUIRED' | translate }}</span>
                                 }
                                 @if (registerForm.get('confirmPassword')?.errors?.['passwordMismatch']) {
-                                    <span>Passwords do not match</span>
+                                    <span>{{ 'AUTH.REGISTER.PASSWORD_MISMATCH' | translate }}</span>
                                 }
                             </div>
                         }
@@ -125,19 +125,18 @@
                             class="btn btn-primary w-100 mb-3"
                             [disabled]="loading()">
                         @if (!loading()) {
-                            <span>Register</span>
+                            <span>{{ 'AUTH.REGISTER.SUBMIT' | translate }}</span>
                         } @else {
                             <span>
                                 <span class="spinner-border spinner-border-sm me-2"></span>
-                                Creating account...
+                                {{ 'AUTH.REGISTER.CREATING' | translate }}
                             </span>
                         }
                     </button>
 
                     <!-- Login Link -->
                     <div class="text-center">
-                        <p class="mb-0">Already have an account? <a [routerLink]="['/login']" class="link-primary">Login
-                            here</a></p>
+                        <p class="mb-0">{{ 'AUTH.REGISTER.ALREADY_HAVE_ACCOUNT' | translate }} <a [routerLink]="['/login']" class="link-primary">{{ 'AUTH.REGISTER.LOGIN_HERE' | translate }}</a></p>
                     </div>
                 </form>
             </div>
@@ -148,26 +147,25 @@
                     <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
                 </div>
 
-                <h4 class="mb-3">Registration Successful!</h4>
+                <h4 class="mb-3">{{ 'AUTH.REGISTER.SUCCESS_TITLE' | translate }}</h4>
 
                 <div class="alert alert-info">
-                    <p class="mb-0">We've sent a verification email to your inbox. Please check your email and click the
-                        verification link to activate your account.</p>
+                    <p class="mb-0">{{ 'AUTH.REGISTER.SUCCESS_INFO' | translate }}</p>
                 </div>
 
                 <button class="btn btn-outline-primary mb-3 w-100" (click)="resendVerificationEmail()" [disabled]="loading()">
                     @if (!loading()) {
-                        <span>Resend Verification Email</span>
+                        <span>{{ 'AUTH.REGISTER.RESEND' | translate }}</span>
                     } @else {
                         <span>
                             <span class="spinner-border spinner-border-sm me-2"></span>
-                            Sending...
+                            {{ 'AUTH.REGISTER.SENDING' | translate }}
                         </span>
                     }
                 </button>
 
                 <button class="btn btn-primary w-100" (click)="navigateToLogin()">
-                    Go to Login
+                    {{ 'AUTH.REGISTER.GO_TO_LOGIN' | translate }}
                 </button>
             </div>
         }

@@ -8,6 +8,7 @@ import {KeyValuePipe} from '@angular/common';
 import {Router} from '@angular/router';
 import {Gender} from '../../customer/gender';
 import {LoginService} from '../login.service';
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
     selector: 'app-complete-profile',
@@ -16,6 +17,7 @@ import {LoginService} from '../login.service';
         NgbDatepicker,
         NgbInputDatepicker,
         KeyValuePipe,
+        TranslateModule,
     ],
     templateUrl: './complete-profile.component.html',
     styleUrl: './complete-profile.component.scss'

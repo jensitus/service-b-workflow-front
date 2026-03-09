@@ -19,7 +19,7 @@
                     </div>
                     <div class="row pt-3">
                         <div class="col">
-                            Date of birth:
+                            {{ 'CUSTOMER.DATE_OF_BIRTH' | translate }}
                         </div>
                         <div class="col">
                             {{ customer.dateOfBirth }}
@@ -27,7 +27,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            Telephone:
+                            {{ 'CUSTOMER.TELEPHONE' | translate }}
                         </div>
                         <div class="col">
                             {{ customer.phoneNumber }}
@@ -35,7 +35,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            Gender:
+                            {{ 'CUSTOMER.GENDER' | translate }}
                         </div>
                         <div class="col">
                             {{ customer.gender }}
@@ -43,7 +43,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            Street:
+                            {{ 'CUSTOMER.STREET' | translate }}
                         </div>
                         <div class="col">
                             {{ customer.street }}
@@ -51,7 +51,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            City:
+                            {{ 'CUSTOMER.CITY' | translate }}
                         </div>
                         <div class="col">
                             {{ customer.zipCode + ' ' + customer.city }}
@@ -59,7 +59,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            Country:
+                            {{ 'CUSTOMER.COUNTRY' | translate }}
                         </div>
                         <div class="col">
                             {{ customer.country }}
@@ -69,7 +69,7 @@
             </div>
         </div>
         <div class="col-md-6">
-            <h4>Insurances</h4>
+            <h4>{{ 'CUSTOMER.INSURANCES' | translate }}</h4>
             <div>
                 @for (insurance of approvedInsurances; track insurance) {
                     <div class="pt-1">
@@ -77,7 +77,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-3">
-                                        Number:
+                                        {{ 'CUSTOMER.NUMBER' | translate }}
                                     </div>
                                     <div class="col-9">
                                         {{ insurance.insuranceNumber }}
@@ -85,7 +85,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-3">
-                                        Name:
+                                        {{ 'CUSTOMER.NAME' | translate }}
                                     </div>
                                     <div class="col-9">
                                         {{ insurance.name }}
@@ -93,7 +93,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-3">
-                                        Type:
+                                        {{ 'CUSTOMER.TYPE' | translate }}
                                     </div>
                                     <div class="col-9">
                                         {{ insurance.insuranceType }}
@@ -101,7 +101,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-3">
-                                        Sum:
+                                        {{ 'CUSTOMER.SUM' | translate }}
                                     </div>
                                     <div class="col-9">
                                         {{ insurance.insuranceSum }}
@@ -109,7 +109,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-3">
-                                        Payment schedule:
+                                        {{ 'CUSTOMER.PAYMENT_SCHEDULE' | translate }}
                                     </div>
                                     <div class="col-9">
                                         {{ insurance.paymentSchedule }}
@@ -117,7 +117,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-3">
-                                        Amount:
+                                        {{ 'CUSTOMER.AMOUNT' | translate }}
                                     </div>
                                     <div class="col-9">
                                         {{ "€ " + insurance.amount + ".-" }}
@@ -125,7 +125,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-3">
-                                        State:
+                                        {{ 'CUSTOMER.STATE' | translate }}
                                     </div>
                                     <div class="col-9">
                                         {{ insurance.state }}
@@ -142,7 +142,7 @@
 <div class="row">
     <div class="col-md-4 mt-4">
         <p>
-            <b>New Insurance?</b>
+            <b>{{ 'CUSTOMER.NEW_INSURANCE' | translate }}</b>
         </p>
         <div class="form-check">
             <input id="new_insurance"
@@ -150,17 +150,17 @@
                    [(ngModel)]="isChecked"
                    class="btn-check">
             <label class="btn btn-sm btn-outline-info" for="new_insurance">
-                <b>{{ isChecked ? 'No' : 'Add new insurance' }}</b>
+                <b>{{ isChecked ? ('CUSTOMER.NO' | translate) : ('CUSTOMER.ADD_NEW' | translate) }}</b>
             </label>
         </div>
         @if (isChecked) {
             <div class="row pt-5">
                 <div class="col">
-                    Insurance Type
+                    {{ 'CUSTOMER.INSURANCE_TYPE' | translate }}
                     <select class="form-select" aria-label="Default select example" [(ngModel)]="type"
                             (change)="new_insurance()">
-                        <option value="LIABILITY_INSURANCE">Liability</option>
-                        <option value="HOUSEHOLD_INSURANCE">Household</option>
+                        <option value="LIABILITY_INSURANCE">{{ 'CUSTOMER.LIABILITY' | translate }}</option>
+                        <option value="HOUSEHOLD_INSURANCE">{{ 'CUSTOMER.HOUSEHOLD' | translate }}</option>
                     </select>
                 </div>
             </div>
@@ -169,7 +169,7 @@
                     <button class="btn btn-sm btn-outline-dark"
                             (click)="request_insurance()"
                             [disabled]="type === undefined">
-                        Request Insurance
+                        {{ 'CUSTOMER.REQUEST_INSURANCE' | translate }}
                     </button>
                 </div>
             </div>
@@ -179,15 +179,15 @@
 
         <div class="row mt-4">
             <div class="col">
-                <h4>Open Tasks</h4>
+                <h4>{{ 'CUSTOMER.OPEN_TASKS' | translate }}</h4>
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>Task ID</th>
-                        <th>Title</th>
-                        <th>Type</th>
-                        <th>Assignee</th>
-                        <th>Created at</th>
+                        <th>{{ 'CUSTOMER.TASK_ID' | translate }}</th>
+                        <th>{{ 'CUSTOMER.TASK_TITLE' | translate }}</th>
+                        <th>{{ 'CUSTOMER.TASK_TYPE' | translate }}</th>
+                        <th>{{ 'CUSTOMER.TASK_ASSIGNEE' | translate }}</th>
+                        <th>{{ 'CUSTOMER.TASK_CREATED' | translate }}</th>
                     </tr>
                     </thead>
                     @if (tasks.length === 0) {
@@ -195,7 +195,7 @@
                         <tr>
                             <td></td>
                             <td>
-                                No Open Tasks
+                                {{ 'CUSTOMER.NO_OPEN_TASKS' | translate }}
                             </td>
                             <td></td>
                             <td></td>
@@ -234,20 +234,20 @@
         <div class="row pt-3">
             <div class="col-10">
                 @if (requestedInsurances.length > 0) {
-                    <h4>Requested contracts</h4>
+                    <h4>{{ 'CUSTOMER.REQUESTED_CONTRACTS' | translate }}</h4>
                     @for (insurance of requestedInsurances; track insurance) {
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        Payment Schedule:
+                                        {{ 'CUSTOMER.PAYMENT_SCHEDULE' | translate }}
                                     </div>
                                     <div class="col-md-2">
                                         {{ insurance.paymentSchedule }}
                                     </div>
 
                                     <div class="col-md-2">
-                                        Number:
+                                        {{ 'CUSTOMER.NUMBER' | translate }}
                                     </div>
                                     <div class="col-md-3">
                                         {{ insurance.insuranceNumber }}
@@ -255,14 +255,14 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-3">
-                                        Amount:
+                                        {{ 'CUSTOMER.AMOUNT' | translate }}
                                     </div>
                                     <div class="col-md-2">
                                         {{ insurance.amount }}
                                     </div>
 
                                     <div class="col-md-2">
-                                        Name:
+                                        {{ 'CUSTOMER.NAME' | translate }}
                                     </div>
                                     <div class="col-md-5">
                                         {{ insurance.name }}
@@ -270,7 +270,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-3">
-                                        Insurance sum:
+                                        {{ 'CUSTOMER.INSURANCE_SUM' | translate }}
                                     </div>
                                     <div class="col-md-2">
                                         {{ insurance.insuranceSum }}
@@ -278,14 +278,14 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-3">
-                                        Insurance coverage:
+                                        {{ 'CUSTOMER.INSURANCE_COVERAGE' | translate }}
                                     </div>
                                     <div class="col-md-2">
                                         {{ insurance.insuranceCoverage }}
                                     </div>
 
                                     <div class="col-md-2">
-                                        State:
+                                        {{ 'CUSTOMER.STATE' | translate }}
                                     </div>
                                     <div class="col-md-5">
                                         {{ insurance.state }}

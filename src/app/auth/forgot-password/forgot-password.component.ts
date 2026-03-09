@@ -3,10 +3,11 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {RouterLink} from '@angular/router';
 import {AuthService} from '../auth.service';
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
     selector: 'app-forgot-password',
-    imports: [ReactiveFormsModule, RouterLink],
+    imports: [ReactiveFormsModule, RouterLink, TranslateModule],
     templateUrl: './forgot-password.component.html',
     styleUrl: './forgot-password.component.scss'
 })

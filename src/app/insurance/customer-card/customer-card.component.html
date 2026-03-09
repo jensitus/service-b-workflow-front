@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                Customer
+                {{ 'INSURANCE.CUSTOMER_CARD' | translate }}
             </div>
             <div class="card-body">
                 @if (!customer) {
@@ -21,7 +21,7 @@
                 } @else {
                     <div class="row">
                         <div class="col">
-                            Name:
+                            {{ 'INSURANCE.CARD_NAME' | translate }}
                         </div>
                         <div class="col">
                             {{ customer.firstname + ' ' + customer.lastname }}
@@ -29,7 +29,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            Email:
+                            {{ 'INSURANCE.CARD_EMAIL' | translate }}
                         </div>
                         <div class="col">
                             {{ customer.email }}
@@ -37,7 +37,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            Telephone:
+                            {{ 'INSURANCE.CARD_PHONE' | translate }}
                         </div>
                         <div class="col">
                             {{ customer.phoneNumber }}
@@ -45,7 +45,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            Gender:
+                            {{ 'INSURANCE.CARD_GENDER' | translate }}
                         </div>
                         <div class="col">
                             {{ customer.gender }}
@@ -53,7 +53,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            Date of birth:
+                            {{ 'INSURANCE.CARD_DOB' | translate }}
                         </div>
                         <div class="col">
                             {{ customer.dateOfBirth }}
@@ -61,7 +61,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            Street:
+                            {{ 'INSURANCE.CARD_STREET' | translate }}
                         </div>
                         <div class="col">
                             {{ customer.street }}
@@ -69,7 +69,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            City:
+                            {{ 'INSURANCE.CARD_CITY' | translate }}
                         </div>
                         <div class="col">
                             {{ customer.zipCode + ' ' + customer.city }}
@@ -77,7 +77,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            Country:
+                            {{ 'INSURANCE.CARD_COUNTRY' | translate }}
                         </div>
                         <div class="col">
                             {{ customer.country }}

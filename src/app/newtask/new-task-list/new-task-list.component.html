@@ -1,7 +1,7 @@
 <!-- task-list.component.html -->
 <div class="task-list-container">
     <div class="header">
-        <h2>Task List</h2>
+        <h2>{{ 'TASKS.TITLE' | translate }}</h2>
 
         <!-- Task Filter Mode -->
         <div class="filter-mode-section">
@@ -10,26 +10,26 @@
                     [class.active]="filterMode() === 'my-tasks'"
                     (click)="onFilterModeChange('my-tasks')"
                     [disabled]="loading()">
-                    My Tasks
+                    {{ 'TASKS.MY_TASKS' | translate }}
                 </button>
                 <button
                     [class.active]="filterMode() === 'available'"
                     (click)="onFilterModeChange('available')"
                     [disabled]="loading()">
-                    Available
+                    {{ 'TASKS.AVAILABLE' | translate }}
                 </button>
                 <button
                     [class.active]="filterMode() === 'all'"
                     (click)="onFilterModeChange('all')"
                     [disabled]="loading()">
-                    All Tasks
+                    {{ 'TASKS.ALL' | translate }}
                 </button>
             </div>
         </div>
 
         <!-- Tenant ID Filter -->
         <div class="filter-section">
-            <label for="tenantId">Tenant ID:</label>
+            <label for="tenantId">{{ 'TASKS.TENANT_ID' | translate }}</label>
             <input
                     id="tenantId"
                     type="text"
@@ -37,7 +37,7 @@
                     (input)="onTenantIdChange($any($event.target).value)"
                     placeholder="Enter tenant ID">
             <button (click)="loadTasks()" [disabled]="loading()">
-                {{ loading() ? 'Loading...' : 'Search' }}
+                {{ loading() ? ('TASKS.LOADING' | translate) : ('TASKS.SEARCH' | translate) }}
             </button>
         </div>
     </div>
@@ -53,7 +53,7 @@
     @if (loading()) {
         <div class="loading-spinner">
             <div class="spinner"></div>
-            <p>Loading tasks...</p>
+            <p>{{ 'TASKS.LOADING_TASKS' | translate }}</p>
         </div>
     }
 
@@ -64,21 +64,21 @@
                 <thead>
                 <tr>
                     <th (click)="onSort('name')" class="sortable">
-                        Name {{ getSortIcon('name') }}
+                        {{ 'TASKS.NAME' | translate }} {{ getSortIcon('name') }}
                     </th>
                     <th (click)="onSort('taskId')" class="sortable">
-                        Task ID {{ getSortIcon('taskId') }}
+                        {{ 'TASKS.TASK_ID' | translate }} {{ getSortIcon('taskId') }}
                     </th>
                     <th (click)="onSort('assignee')" class="sortable">
-                        Assignee {{ getSortIcon('assignee') }}
+                        {{ 'TASKS.ASSIGNEE' | translate }} {{ getSortIcon('assignee') }}
                     </th>
                     <th (click)="onSort('taskState')" class="sortable">
-                        State {{ getSortIcon('taskState') }}
+                        {{ 'TASKS.STATE' | translate }} {{ getSortIcon('taskState') }}
                     </th>
                     <th (click)="onSort('created')" class="sortable">
-                        Created {{ getSortIcon('created') }}
+                        {{ 'TASKS.CREATED' | translate }} {{ getSortIcon('created') }}
                     </th>
-                    <th>Actions</th>
+                    <th>{{ 'TASKS.ACTIONS' | translate }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -86,7 +86,7 @@
                         <tr>
                             <td>{{ task.name }}</td>
                             <td>{{ task.taskId }}</td>
-                            <td>{{ task.assignee || 'Unassigned' }}</td>
+                            <td>{{ task.assignee || ('TASKS.UNASSIGNED' | translate) }}</td>
                             <td>
                 <span [class]="'status-badge status-' + task.taskState?.toLowerCase()">
                   {{ task.taskState }}
@@ -107,13 +107,13 @@
         <!-- Pagination Controls -->
         <div class="pagination-container">
             <div class="pagination-info">
-                Showing {{ startIndex() }} to {{ endIndex() }} of {{ totalElements() }} tasks
+                {{ 'TASKS.SHOWING' | translate:{ from: startIndex(), to: endIndex(), total: totalElements() } }}
             </div>
 
             <div class="pagination-controls">
                 <!-- Page Size Selector -->
                 <div class="page-size-selector">
-                    <label for="pageSize">Items per page:</label>
+                    <label for="pageSize">{{ 'TASKS.ITEMS_PER_PAGE' | translate }}</label>
                     <select
                             id="pageSize"
                             [value]="pageSize()"
@@ -131,18 +131,18 @@
                             (click)="previousPage()"
                             [disabled]="!hasPreviousPage() || loading()"
                             class="nav-button">
-                        ← Previous
+                        {{ 'TASKS.PREVIOUS' | translate }}
                     </button>
 
                     <span class="page-indicator">
-            Page {{ currentPage() + 1 }} of {{ totalPages() }}
-          </span>
+                        {{ 'TASKS.PAGE_OF' | translate:{ current: currentPage() + 1, total: totalPages() } }}
+                    </span>
 
                     <button
                             (click)="nextPage()"
                             [disabled]="!hasNextPage() || loading()"
                             class="nav-button">
-                        Next →
+                        {{ 'TASKS.NEXT' | translate }}
                     </button>
                 </div>
 
@@ -171,13 +171,13 @@
         <div class="empty-state">
             @switch (filterMode()) {
                 @case ('my-tasks') {
-                    <p>No tasks assigned to you.</p>
+                    <p>{{ 'TASKS.NO_MY_TASKS' | translate }}</p>
                 }
                 @case ('available') {
-                    <p>No unassigned tasks available.</p>
+                    <p>{{ 'TASKS.NO_AVAILABLE' | translate }}</p>
                 }
                 @case ('all') {
-                    <p>No tasks found for tenant: {{ tenantId() }}</p>
+                    <p>{{ 'TASKS.NO_ALL' | translate:{ tenant: tenantId() } }}</p>
                 }
             }
         </div>

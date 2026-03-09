@@ -2,14 +2,12 @@ import {Component, inject, Input, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
 import {WorkflowService} from "../../workflow/service/workflow.service";
 import {Insurance} from "../insurance";
-import {JsonPipe, SlicePipe} from "@angular/common";
 
 @Component({
   selector: 'app-requested-contracts',
   standalone: true,
   imports: [
-    SlicePipe,
-    JsonPipe
+
   ],
   templateUrl: './requested-contracts.component.html',
   styleUrl: './requested-contracts.component.scss'

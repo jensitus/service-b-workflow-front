@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class AvatarService {
-    private baseUrl = `${environment.apiUrl}/api/users`;
+    private baseUrl = `${environment.api_url}/api/users`;
     private http = inject(HttpClient);
 
     uploadAvatar(userId: number, file: File): Observable<{ avatarUrl: string }> {

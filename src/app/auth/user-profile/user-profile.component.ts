@@ -12,18 +12,21 @@ import {Workflow} from '../../workflow/model/workflow';
 import {BpmnViewerComponent} from '../../newtask/bpmn-viewer/bpmn-viewer.component';
 import {NewTaskService} from '../../newtask/new-task.service';
 import {TaskDto} from '../../newtask/task.model';
-import {forkJoin, Observable} from 'rxjs';
+import {catchError, forkJoin, Observable, of} from 'rxjs';
 import {SseService} from '../../course/sse/sse.service';
+import {TranslateModule} from "@ngx-translate/core";
+import {environment} from '../../../environments/environment';
+import {AvatarComponent} from "../../shared/avatar/avatar.component";
 
 interface InsuranceType {
     value: string;
-    label: string;
-    description: string;
+    labelKey: string;
+    descriptionKey: string;
 }
 
 @Component({
     selector: 'app-user-profile',
-    imports: [RouterLink, DatePipe, BpmnViewerComponent],
+    imports: [RouterLink, DatePipe, BpmnViewerComponent, TranslateModule, AvatarComponent],
     templateUrl: './user-profile.component.html',
     styleUrl: './user-profile.component.scss'
 })
@@ -42,28 +45,34 @@ export class UserProfileComponent implements OnInit {
     readonly errorMessage = signal('');
     readonly activeProcessInstances = signal<Workflow[]>([]);
     readonly insuranceTaskMap = signal<Map<string, TaskDto>>(new Map());
+    readonly completedInsuranceProcessMap = signal<Map<string, string>>(new Map());
+    readonly currentUser = this.loginService.currentUser;
 
     readonly insuranceTypes: InsuranceType[] = [
         {
             value: 'HOUSEHOLD_INSURANCE',
-            label: 'Household Insurance',
-            description: 'Protect your home and belongings against damage, theft, and natural disasters.'
+            labelKey: 'INSURANCE.HOUSEHOLD_LABEL',
+            descriptionKey: 'INSURANCE.HOUSEHOLD_DESC'
         },
         {
             value: 'LIABILITY_INSURANCE',
-            label: 'Liability Insurance',
-            description: 'Coverage for personal liability claims and legal protection.'
+            labelKey: 'INSURANCE.LIABILITY_LABEL',
+            descriptionKey: 'INSURANCE.LIABILITY_DESC'
         }
     ];
 
-    readonly isLoggedIn = computed(() => this.user() !== null);
+    // readonly isLoggedIn = computed(() => this.user() !== null);
     readonly hasCustomerProfile = computed(() => this.customer() !== null);
     readonly customerInsurances = computed(() => this.customer()?.insurances ?? []);
     readonly selectedProcessId = signal<string | null>(null);
     readonly activeProcessInstanceIds = computed(() => this.activeProcessInstances().map(w => w.id));
+    readonly allProcessInstanceIds = computed(() => {
+        const completedIds = Array.from(this.completedInsuranceProcessMap().values());
+        return [...this.activeProcessInstanceIds(), ...completedIds];
+    });
     readonly displayedProcessInstanceIds = computed(() => {
         const sel = this.selectedProcessId();
-        return sel ? [sel] : this.activeProcessInstanceIds();
+        return sel ? [sel] : this.allProcessInstanceIds();
     });
 
     readonly highlightedInsuranceId = computed(() => {
@@ -71,6 +80,9 @@ export class UserProfileComponent implements OnInit {
         if (!sel) return null;
         for (const [insuranceId, task] of this.insuranceTaskMap()) {
             if (task.processInstanceId === sel) return insuranceId;
+        }
+        for (const [insuranceId, processId] of this.completedInsuranceProcessMap()) {
+            if (processId === sel) return insuranceId;
         }
         return null;
     });
@@ -103,6 +115,7 @@ export class UserProfileComponent implements OnInit {
                         }
                         if (userCustomer.insurances?.length) {
                             this.loadInsuranceTasks(userCustomer.insurances);
+                            this.loadCompletedProcessIds(userCustomer.insurances);
                         }
                         this.subscribeToInsuranceEvents();
                     }
@@ -115,7 +128,7 @@ export class UserProfileComponent implements OnInit {
     }
 
     private subscribeToInsuranceEvents(): void {
-        this.sseService.createInsuranceEventSource('http://localhost:8080/server-send-insurance')
+        this.sseService.createInsuranceEventSource(`${environment.api_url}/server-send-insurance`)
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe({
                 next: (updatedInsurance) => this.handleInsuranceUpdate(updatedInsurance)
@@ -152,6 +165,17 @@ export class UserProfileComponent implements OnInit {
             if (customer.id) {
                 this.loadActiveProcesses(customer.id);
             }
+            if (updatedInsurance.id) {
+                this.workflowService.getProcessInstanceIdByInsuranceId(updatedInsurance.id)
+                    .pipe(takeUntilDestroyed(this.destroyRef), catchError(() => of(null)))
+                    .subscribe(result => {
+                        if (result?.processInstanceId) {
+                            const map = new Map(this.completedInsuranceProcessMap());
+                            map.set(updatedInsurance.id, result.processInstanceId);
+                            this.completedInsuranceProcessMap.set(map);
+                        }
+                    });
+            }
         }
     }
 
@@ -174,6 +198,30 @@ export class UserProfileComponent implements OnInit {
                     this.insuranceTaskMap.set(map);
                 },
                 error: () => { /* silently ignore */ }
+            });
+    }
+
+    private loadCompletedProcessIds(insurances: Insurance[]): void {
+        const terminalStates = ['CANCELLED', 'REJECTED', 'APPROVED', 'COMPLETED'];
+        const terminalInsurances = insurances.filter(i => i.id && terminalStates.includes(i.state?.toUpperCase()));
+        if (!terminalInsurances.length) return;
+
+        const requests = terminalInsurances.reduce((acc, ins) => {
+            acc[ins.id] = this.workflowService.getProcessInstanceIdByInsuranceId(ins.id)
+                .pipe(catchError(() => of(null)));
+            return acc;
+        }, {} as Record<string, Observable<{ processInstanceId: string } | null>>);
+
+        forkJoin(requests)
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe(results => {
+                const map = new Map<string, string>();
+                for (const [insuranceId, result] of Object.entries(results)) {
+                    if (result?.processInstanceId) {
+                        map.set(insuranceId, result.processInstanceId);
+                    }
+                }
+                this.completedInsuranceProcessMap.set(map);
             });
     }
 
@@ -211,7 +259,10 @@ export class UserProfileComponent implements OnInit {
 
     getInsuranceStatusClass(state: string): string {
         switch (state?.toUpperCase()) {
+            case 'REQUESTED':
+                return 'bg-info';
             case 'ACTIVE':
+            case 'APPROVED':
                 return 'bg-success';
             case 'PENDING':
                 return 'bg-warning';

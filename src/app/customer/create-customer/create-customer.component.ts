@@ -8,6 +8,7 @@ import {JsonPipe, KeyValuePipe} from "@angular/common";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Gender} from "../gender";
 import {LoginService} from "../../auth/login.service";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-create-customer',
@@ -17,7 +18,8 @@ import {LoginService} from "../../auth/login.service";
     JsonPipe,
     NgbInputDatepicker,
     NgbAlert,
-    KeyValuePipe
+    KeyValuePipe,
+    TranslateModule
   ],
   templateUrl: './create-customer.component.html',
   styleUrl: './create-customer.component.scss'

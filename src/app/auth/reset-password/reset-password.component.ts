@@ -3,10 +3,11 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {AuthService} from '../auth.service';
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
     selector: 'app-reset-password',
-    imports: [ReactiveFormsModule, RouterLink],
+    imports: [ReactiveFormsModule, RouterLink, TranslateModule],
     templateUrl: './reset-password.component.html',
     styleUrl: './reset-password.component.scss'
 })

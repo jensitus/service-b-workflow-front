@@ -5,6 +5,7 @@ import {Coverage} from "../coverage";
 import {Amount} from "../amount";
 import {ScheduleOfPayments} from "../schedule-of-payments";
 import {Event} from "@angular/router";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-payment-schedule',
@@ -13,7 +14,8 @@ import {Event} from "@angular/router";
     JsonPipe,
     KeyValuePipe,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    TranslateModule
   ],
   templateUrl: './payment-schedule.component.html',
   styleUrl: './payment-schedule.component.scss'
@@ -135,6 +137,14 @@ export class PaymentScheduleComponent implements OnInit {
     this.chosenCoverage.emit(this.coverage);
     this.paymentSchedule = null;
     this.setPaymentSchedule();
+  }
+
+  coverageTranslationKey(cover: string): string {
+    return `INSURANCE.COVERAGE_${cover.toUpperCase()}`;
+  }
+
+  scheduleTranslationKey(key: string): string {
+    return `INSURANCE.SCHEDULE_${key.toUpperCase()}`;
   }
 
   emitPaymentSchedule(paymentSchedule: Map<string, number>) {

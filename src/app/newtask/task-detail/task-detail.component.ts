@@ -8,6 +8,7 @@ import {TaskConfig} from "../../task/task-config";
 import {TaskFormComponent} from "../../task/task-form/task-form.component";
 import {CompleteTaskEvent} from "../../task/CompleteTaskEvent";
 import {BpmnViewerComponent} from "../bpmn-viewer/bpmn-viewer.component";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
     selector: 'app-task-detail',
@@ -17,7 +18,8 @@ import {BpmnViewerComponent} from "../bpmn-viewer/bpmn-viewer.component";
         DatePipe,
         KeyValuePipe,
         TaskFormComponent,
-        BpmnViewerComponent
+        BpmnViewerComponent,
+        TranslateModule
     ],
     templateUrl: './task-detail.component.html',
     styleUrl: './task-detail.component.scss'

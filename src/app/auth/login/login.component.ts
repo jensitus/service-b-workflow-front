@@ -4,13 +4,15 @@ import {FormsModule} from "@angular/forms";
 import {LoginService} from "../login.service";
 import {NgbToast} from "@ng-bootstrap/ng-bootstrap";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-login',
   imports: [
     FormsModule,
     NgbToast,
-    RouterLink
+    RouterLink,
+    TranslateModule
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'

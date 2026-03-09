@@ -1,5 +1,5 @@
 import {Component, inject, Input, OnInit} from '@angular/core';
-import {NgClass, NgIf, NgOptimizedImage} from "@angular/common";
+import {NgClass, NgIf} from "@angular/common";
 import {GravatarService} from "../gravatar.service";
 
 @Component({
@@ -8,7 +8,6 @@ import {GravatarService} from "../gravatar.service";
     imports: [
         NgClass,
         NgIf,
-        NgOptimizedImage
     ],
   templateUrl: './avatar.component.html',
   styleUrl: './avatar.component.scss'

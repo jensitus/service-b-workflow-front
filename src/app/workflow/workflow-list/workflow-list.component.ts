@@ -4,6 +4,7 @@ import {Workflow} from "../model/workflow";
 import {Subscription} from "rxjs";
 import {WorkflowService} from "../service/workflow.service";
 import {ProcessDefinition} from "../model/process-definition";
+import {TranslateModule} from "@ngx-translate/core";
 
 const translations = {
   "title.long": 'Workflows',
@@ -22,7 +23,8 @@ const translations = {
     standalone: true,
     templateUrl: './workflow-list.component.html',
     imports: [
-        RouterLink
+        RouterLink,
+        TranslateModule
     ],
     styleUrls: ['./workflow-list.component.scss']
 })

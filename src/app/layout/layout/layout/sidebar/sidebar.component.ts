@@ -1,7 +1,9 @@
-import {Component, computed, EventEmitter, inject, Output} from '@angular/core';
+import {Component, computed, EventEmitter, inject, OnInit, Output} from '@angular/core';
 import {NavigationEnd, Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {LoginService} from "../../../../auth/login.service";
-import {NgClass} from "@angular/common";
+import {TranslateModule} from "@ngx-translate/core";
+
+const SIDEBAR_COLLAPSED_KEY = 'sidebar_collapsed';
 
 @Component({
     selector: 'app-sidebar',
@@ -10,13 +12,14 @@ import {NgClass} from "@angular/common";
     imports: [
         RouterLink,
         RouterLinkActive,
+        TranslateModule,
     ],
     styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
 
   pushRightClass: string | undefined;
-  collapsed: boolean | undefined;
+  collapsed: boolean = false;
   showMenu: string | undefined;
   isActive: boolean | undefined;
   @Output() collapsedEvent = new EventEmitter<boolean>();
@@ -36,6 +39,11 @@ export class SidebarComponent {
     });
   }
 
+  ngOnInit(): void {
+    this.collapsed = localStorage.getItem(SIDEBAR_COLLAPSED_KEY) === 'true';
+    this.collapsedEvent.emit(this.collapsed);
+  }
+
   isToggled(): boolean {
     // @ts-ignore
     const dom: Element = document.querySelector('body');
@@ -49,6 +57,7 @@ export class SidebarComponent {
 
   toggleCollapsed() {
     this.collapsed = !this.collapsed;
+    localStorage.setItem(SIDEBAR_COLLAPSED_KEY, String(this.collapsed));
     this.collapsedEvent.emit(this.collapsed);
   }
 

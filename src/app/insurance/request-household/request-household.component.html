@@ -1,4 +1,4 @@
-<h3>New household insurance</h3>
+<h3>{{ 'INSURANCE.HOUSEHOLD_TITLE' | translate }}</h3>
 <div class="row pt-3">
   <div class="col-md-12">
     <div class="card">
@@ -14,7 +14,7 @@
         } @else {
           <div class="row">
             <div class="col-md-2">
-              Customer:
+              {{ 'INSURANCE.CUSTOMER' | translate }}
             </div>
             <div class="col-md-4">
               {{ customer.firstname + ' ' + customer.lastname }} <br>
@@ -40,12 +40,12 @@
   <div class="col-md-6">
     <div class="card">
       <div class="card-header">
-        Risk premiums
+        {{ 'INSURANCE.RISK_PREMIUMS' | translate }}
       </div>
       <div class="card-body">
         <div class="row pt-2">
           <div class="col-md-4">
-            Danger of mudslide:
+            {{ 'INSURANCE.MUDSLIDE' | translate }}
           </div>
           <div class="col-md-2">
             <input id="mudslide" type="checkbox" class="form-check-input" [(ngModel)]="mudslide_risk">
@@ -58,7 +58,7 @@
         </div>
         <div class="row pt-2">
           <div class="col-md-4">
-            Danger of flooding
+            {{ 'INSURANCE.FLOODING' | translate }}
           </div>
           <div class="col-md-2">
             <input id="flood" type="checkbox" class="form-check-input" [(ngModel)]="flood_risk">
@@ -75,7 +75,7 @@
     <div class="col-md-6">
         <div class="card">
             <div class="card-header">
-                Monthy Income
+                {{ 'INSURANCE.MONTHLY_INCOME' | translate }}
             </div>
             <div class="card-body">
                 <div class="row">
@@ -84,9 +84,9 @@
                     </div>
                     <div class="col-md-6">
                         @if (sufficientIncome) {
-                            <b>></b> € 5000.- (alright)
+                            <b>></b> {{ 'INSURANCE.INCOME_OK' | translate }}
                         } @else {
-                            <b><</b> € 5000.- (let's take a closer look)
+                            <b><</b> {{ 'INSURANCE.INCOME_LOW' | translate }}
                         }
                     </div>
                 </div>
@@ -96,7 +96,6 @@
 </div>
 <div class="row pt-3">
   <div class="col-md-6">
-    <button class="btn btn-sm btn-outline-info" (click)="request_insurance()" [disabled]="!paymentSchedule">Request Insurance</button>
+    <button class="btn btn-sm btn-outline-info" (click)="request_insurance()" [disabled]="!paymentSchedule">{{ 'INSURANCE.REQUEST' | translate }}</button>
   </div>
 </div>
-

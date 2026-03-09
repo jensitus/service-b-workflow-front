@@ -39,6 +39,16 @@
                     &nbsp;
                 </div>
             }
+            <div class="nav-item d-flex align-items-center gap-1 ms-2">
+                <button class="btn btn-sm"
+                        [class.btn-primary]="languageService.current() === 'en'"
+                        [class.btn-outline-secondary]="languageService.current() !== 'en'"
+                        (click)="languageService.setLanguage('en')">EN</button>
+                <button class="btn btn-sm"
+                        [class.btn-primary]="languageService.current() === 'de'"
+                        [class.btn-outline-secondary]="languageService.current() !== 'de'"
+                        (click)="languageService.setLanguage('de')">DE</button>
+            </div>
         </div>
     </div>
 </nav>

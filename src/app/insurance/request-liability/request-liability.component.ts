@@ -9,6 +9,7 @@ import {Message} from "../../customer/message";
 import {Router} from "@angular/router";
 import {CustomerCardComponent} from "../customer-card/customer-card.component";
 import {PaymentScheduleComponent} from "../payment-schedule/payment-schedule.component";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-request-liability',
@@ -17,7 +18,8 @@ import {PaymentScheduleComponent} from "../payment-schedule/payment-schedule.com
     ReactiveFormsModule,
     FormsModule,
     CustomerCardComponent,
-    PaymentScheduleComponent
+    PaymentScheduleComponent,
+    TranslateModule
   ],
   templateUrl: './request-liability.component.html',
   styleUrl: './request-liability.component.scss'

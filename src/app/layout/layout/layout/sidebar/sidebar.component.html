@@ -1,44 +1,40 @@
 <nav class="sidebar bg-body-tertiary" [class]="{sidebarPushRight: isActive, collapsed: collapsed}">
   <div class="list-group mt-5">
 
-    <a [routerLink]="['/new-task-list']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+    <a [routerLink]="['/new-task-list']" [routerLinkActive]="['router-link-active']" class="list-group-item"
+       [attr.data-label]="'NAV.TASKS' | translate">
       <i class="bi bi-card-checklist"></i>&nbsp;
-      <span>{{ 'Tasks' }}</span>
+      <span>{{ 'NAV.TASKS' | translate }}</span>
     </a>
-    <a [routerLink]="['/workflow-list']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+    <a [routerLink]="['/workflow-list']" [routerLinkActive]="['router-link-active']" class="list-group-item"
+       [attr.data-label]="'NAV.WORKFLOWS' | translate">
       <i class="bi bi-diagram-3"></i>&nbsp;
-      <span>{{ 'Workflows' }}</span>
+      <span>{{ 'NAV.WORKFLOWS' | translate }}</span>
     </a>
 
-    <a [routerLink]="['/customers']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+    <a [routerLink]="['/customers']" [routerLinkActive]="['router-link-active']" class="list-group-item"
+       [attr.data-label]="'NAV.CUSTOMERS' | translate">
       <i class="bi bi-people"></i>&nbsp;
-      <span>{{ 'Customers' }}</span>
+      <span>{{ 'NAV.CUSTOMERS' | translate }}</span>
     </a>
       @if (!isLoggedIn()) {
-          <a [routerLink]="['/login']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+          <a [routerLink]="['/login']" [routerLinkActive]="['router-link-active']" class="list-group-item"
+             [attr.data-label]="'NAV.LOGIN' | translate">
               <i class="bi bi-person"></i>&nbsp;
-              <span>{{ 'Login' }}</span>
+              <span>{{ 'NAV.LOGIN' | translate }}</span>
           </a>
       } @else {
-          <a [routerLink]="['/#']" [routerLinkActive]="['router-link-active']" class="list-group-item" (click)="logout()">
+          <a [routerLink]="['/#']" [routerLinkActive]="['router-link-active']" class="list-group-item"
+             [attr.data-label]="'NAV.LOGOUT' | translate"
+             (click)="logout()">
               <i class="bi bi-box-arrow-right"></i>&nbsp;
-              <span>{{ 'Logout' }}</span>
+              <span>{{ 'NAV.LOGOUT' | translate }}</span>
           </a>
       }
-
-
-    <div class="header-fields">
-      <div class="nested-menu">
-        <a class="list-group-item" (click)="addExpandClass('languages')">
-          <span><i class="fa fa-language"></i>&nbsp; {{ 'Language' }} <b class="caret"></b></span>
-        </a>
-      </div>
-
-    </div>
   </div>
   <div class="toggle-button" [class.collapsed]="collapsed" (click)="toggleCollapsed()">
     <i class="fa fa-fw fa-angle-double-{{collapsed?'right':'left'}}"></i>&nbsp;
-    <span>{{ 'Collapse Sidebar' }}</span>
+    <span>{{ 'NAV.COLLAPSE_SIDEBAR' | translate }}</span>
   </div>
 
 </nav>

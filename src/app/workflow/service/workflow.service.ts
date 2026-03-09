@@ -55,4 +55,8 @@ export class WorkflowService {
     return this.http.get<FlowNodeInstance[]>(environment.api_url + '/workflows/diagram/flow-node-instance/' + key);
   }
 
+  getProcessInstanceIdByInsuranceId(insuranceId: string): Observable<{ processInstanceId: string }> {
+    return this.http.get<{ processInstanceId: string }>(`${this.apiUrl}/api/process-instances/by-insurance/${insuranceId}`);
+  }
+
 }

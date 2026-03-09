@@ -5,13 +5,14 @@ import {NewTaskService} from "../new-task.service";
 import {TaskDto} from "../task.model";
 import {Router} from "@angular/router";
 import {LoginService} from "../../auth/login.service";
+import {TranslateModule} from "@ngx-translate/core";
 
 export type TaskFilterMode = 'my-tasks' | 'available' | 'all';
 
 @Component({
   selector: 'app-new-task-list',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslateModule],
   templateUrl: './new-task-list.component.html',
   styleUrl: './new-task-list.component.scss'
 })
